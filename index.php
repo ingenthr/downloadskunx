@@ -3,6 +3,9 @@
 require_once 'S3.php';
 
 $contents = require_once 'contents.php';
+
+$mimetype = (@$_GET['type'] === 'html' ? 'text/html' : 'application/json');
+
 /*
 $s3 = new S3('accessKey', 'secretKey');
 $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
@@ -73,5 +76,14 @@ function collectFor($product_string) {
 	return $output;
 }
 
-header('Content-Type: application/json');
-print_r(json_encode(collectFor('membase-server')));
+header('Content-Type: ' . $mimetype);
+
+$membase_releases = collectFor('membase-server');
+
+if ($mimetype === 'application/json') {
+	print_r(json_encode($membase_releases));
+} else {
+	require_once 'Mustache.php';
+	$m = new Mustache();
+	echo $m->render(file_get_contents('downloads.html'), $membase_releases);
+}
