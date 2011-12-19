@@ -1,34 +1,64 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-        "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Couchbase Downloads</title>
-  </head>
-  <body>
-      <h1>Couchbase Serverh</h1>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Couchbase Downloads</title>
+</head>
+<body>
+    <h1>Couchbase Server</h1>
     <div id="download_table_container">
         <table id="couchbase_server_downloads">
-            <tr><th/><th colspan="2">Enterprise Edition</th>
-                <th colspan="2">Community Edition</th>
-                <th>Source</th>
-            </tr>
+          <thead>
             <tr>
-                <td/>
-                <td>32-bit</td>
-                <td>64-bit</td>
-                <td>32-bit</td>
-                <td>64-bit</td>
-                <td/>
-            </tr>
+              <th colspan="2">Operating System</th>
+              <th>Enterprise Edition</th>
+              <th>Community Edition</th>
+          </thead>
+          <tbody>
+            <!-- Ubuntu latest -->
             <tr>
-                <td>Ubuntu Debian Packages</td>
-                <td>1.8.2 [md5]</td>
+                <td rowspan="2">Ubuntu Debian Packages</td>
+                <td>64-bit</td>
                 <td>1.8.2 [md5]</td>
                 <td>1.8.0 [md5]</td>
+            </tr>
+            <tr>
+                <td>32-bit</td>
+                <td>1.8.2 [md5]</td>
                 <td>1.8.0 [md5]</td>
+            </tr>
+            <tr>
+                <td colspan="2">Install Instructions +</td>
+                <td>Release Notes, Manual</td>
+                <td>Release Notes, Manual</td>
+            </tr>
+
+            <!-- Red Hat latest -->
+            <tr>
+                <td rowspan="2">Red Hat RPMs</td>
+                <td>64-bit</td>
+                <td>1.8.2 [md5]</td>
+                <td>1.8.0 [md5]</td>
+            </tr>
+            <tr>
+                <td>32-bit</td>
+                <td>1.8.2 [md5]</td>
+                <td>1.8.0 [md5]</td>
+            </tr>
+            <tr>
+                <td colspan="2">Install Instructions +</td>
+                <td>Release Notes, Manual</td>
+                <td>Release Notes, Manual</td>
+            </tr>
+
+            <!-- Source Code -->
+            <tr class="source">
+                <th colspan="2">Download Source Code:</th>
+                <td>couchbase-server_1.8.2.tar.gz</td>
                 <td>couchbase-server_1.8.0.tar.gz</td>
             </tr>
+          </tbody>
         </table>
     </div>
-  </body>
-</HTML>
+</body>
+</html>
