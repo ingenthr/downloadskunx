@@ -12,9 +12,7 @@ function collectFor($product_string) {
 	global $contents;
 	
 	$output = array('name' => $product_string,
-	            'releases' =>
-	              array('latest' => array(),
-	                  'previous' => array()));
+	            'releases' => array());
 	
 	$last_version = 0;
 	foreach ($contents as $file) {
@@ -30,8 +28,8 @@ function collectFor($product_string) {
 	    || substr($filename, 0, 10) === 'northscale'
 	    || substr($filename, 0, 15) === 'CouchbaseServer') continue;
 	
-	  if (count($output['releases']['previous']) > 0) {
-		  $last_entry =& $output['releases']['previous'][count($output['releases']['previous'])-1];
+	  if (count($output['releases']) > 0) {
+		  $last_entry =& $output['releases'][count($output['releases'])-1];
 		  $last_downloads_entry =& $last_entry['downloads'][count($last_entry['downloads'])-1];
 	  }
 	  if (substr($filename, -3, 3) === 'md5') {
@@ -63,7 +61,7 @@ function collectFor($product_string) {
 	  } else {
 	  	// create a new entry
 		  $downloads = array(array_filter(compact('url', 'edition', 'os', 'arch')));
-		  $output['releases']['previous'][] = compact('version', 'created', 'downloads');
+		  $output['releases'][] = compact('version', 'created', 'downloads');
 	  }
 	
 	  $last_version = $version;
@@ -71,7 +69,6 @@ function collectFor($product_string) {
 	  unset($version, $product, $edition, $os, $arch, $bits, $version, $postfix, $downloads);
 	}
 
-	$output['releases']['latest'] = array_pop($output['releases']['previous']);
 	return $output;
 }
 
