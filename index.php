@@ -18,16 +18,17 @@ function collectFor($product_string) {
 	foreach ($contents as $file) {
 		$url = $file['name'];
 	  list(, $version, $filename) = explode('/', $file['name']);
-	
+
 	  if ($filename === "") continue;
 	  else if (!is_numeric($version[0])) continue;
+	  else if (strpos($version, '-') !== false) continue;
 	  else if ($filename === 'index.html') continue;
 	  else if (substr($filename, 0, strlen($product_string)) !== $product_string
 	    || substr($filename, -3, 3) === 'xml'
 	    || substr($filename, -3, 3) === 'txt'
 	    || substr($filename, 0, 10) === 'northscale'
 	    || substr($filename, 0, 15) === 'CouchbaseServer') continue;
-	
+
 	  if (count($output['releases']) > 0) {
 		  $last_entry =& $output['releases'][count($output['releases'])-1];
 		  $last_downloads_entry =& $last_entry['downloads'][count($last_entry['downloads'])-1];
