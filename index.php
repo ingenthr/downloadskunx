@@ -48,29 +48,30 @@ function collectFor($product_string) {
 	    preg_match("/([A-Za-z\-]*)[-](enterprise|community)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
 		    $filename, $matches);
 	
-	    list(, $product, $edition, , $os, $arch, $bits, $version, $postfix) = $matches;
+	    list(, $product, $edition, , $type, $arch, $bits, $version, $postfix) = $matches;
 	
 	    if ($bits === '64') $arch .= '/64';
 	
-		  if ($os === 'win2008')       $os = 'Windows';
-		  else if ($postfix === 'rpm') $os = 'Red Hat';
-		  else if ($postfix === 'deb') $os = 'Ubuntu/Debian';
+		  if ($type === 'win2008')     $type = 'exe';
+		  else if ($postfix === 'rpm') $type = 'rpm';
+		  else if ($postfix === 'deb') $type = 'deb';
+		  else                         $type = 'source';
 	  }
 	
 	  $created = date('Y-m-d', $file['time']);
 	
 	  if ($last_version === /*this*/ $version) {
 	  	// append to the previous entry
-	  	$last_entry['downloads'][] = array_filter(compact('url', 'edition', 'os', 'arch'));
+	  	$last_entry['downloads'][] = array_filter(compact('url', 'edition', 'type', 'arch'));
 	  } else {
 	  	// create a new entry
-		  $downloads = array(array_filter(compact('url', 'edition', 'os', 'arch')));
+		  $downloads = array(array_filter(compact('url', 'edition', 'type', 'arch')));
 		  $output['releases'][] = compact('version', 'created', 'downloads');
 	  }
 	
 	  $last_version = $version;
 	  
-	  unset($version, $product, $edition, $os, $arch, $bits, $version, $postfix, $downloads);
+	  unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix, $downloads);
 	}
 
 	return $output;
