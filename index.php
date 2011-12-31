@@ -34,11 +34,6 @@ function collectFor($product_string) {
 
 	  if (count($output['releases']) > 0) {
 		  $last_entry =& $output['releases'][count($output['releases'])-1];
-		  $last_downloads_entry =& $last_entry['downloads'][count($last_entry['downloads'])-1];
-	  }
-	  if (substr($filename, -3, 3) === 'md5') {
-	    $last_downloads_entry['md5'] = $file['name'];
-	    continue;
 	  }
 	  
 	  // source only package...no edition
@@ -51,27 +46,67 @@ function collectFor($product_string) {
 	    list(, $product, $edition, , $type, $arch, $bits, $version, $postfix) = $matches;
 	
 	    if ($bits === '64') $arch .= '/64';
-	
+
 		  if ($type === 'win2008')     $type = 'exe';
-		  else if ($postfix === 'rpm') $type = 'rpm';
-		  else if ($postfix === 'deb') $type = 'deb';
+		  else if (substr($postfix, 0, 3) === 'rpm') $type = 'rpm';
+		  else if (substr($postfix, 0, 3) === 'deb') $type = 'deb';
 		  else                         $type = 'source';
+	  }
+
+	  if (substr($filename, -3, 3) === 'md5') {
+	  	if ($type !== 'source') {
+		    $last_entry['installers'][$type][$arch][$edition]['md5'] = $file['name'];
+	  	} else {
+	  		$last_entry['source'][$edition]['md5'] = $file['name'];
+	  	}
+	    continue;
 	  }
 	
 	  $created = date('Y-m-d', $file['time']);
-	
+	/*
+type
+  arch
+    edition
+      url
+      md5
+    edition
+      url
+      md5
+  arch
+   ...
+...
+	 */
 	  if ($last_version === /*this*/ $version) {
 	  	// append to the previous entry
-	  	$last_entry['downloads'][] = array_filter(compact('url', 'edition', 'type', 'arch'));
+	  	if (array_key_exists($type, $last_entry['installers'])) {
+	  		$last_entry['installers'][$type][$arch] = array($edition => array_filter(compact('url')));
+	  	} else if ($type === 'source') {
+	  		$last_entry['source'] = array($edition => array_filter(compact('url')));
+	  	} else {
+			  $last_entry['installers'][$type] = array($arch => array($edition => array_filter(compact('url'))));
+	  	}
 	  } else {
 	  	// create a new entry
-		  $downloads = array(array_filter(compact('url', 'edition', 'type', 'arch')));
-		  $output['releases'][] = compact('version', 'created', 'downloads');
+	  	if ($type !== 'source') {
+			  $output['releases'][] = compact('version', 'created')
+				  + array('installers'=>
+						  array($type =>
+							  array($arch =>
+							    array($edition => array_filter(compact('url')))
+							  )
+							)
+					  );
+	  	} else {
+			  $output['releases'][] = compact('version', 'created')
+				  + array($type =>
+						  array($edition => array_filter(compact('url')))
+					  );
+	  	}
 	  }
 	
 	  $last_version = $version;
 	  
-	  unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix, $downloads);
+	  unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix);
 	}
 
 	return $output;
