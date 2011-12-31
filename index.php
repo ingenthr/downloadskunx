@@ -63,25 +63,13 @@ function collectFor($product_string) {
 	  }
 	
 	  $created = date('Y-m-d', $file['time']);
-	/*
-type
-  arch
-    edition
-      url
-      md5
-    edition
-      url
-      md5
-  arch
-   ...
-...
-	 */
+
 	  if ($last_version === /*this*/ $version) {
 	  	// append to the previous entry
 	  	if (array_key_exists($type, $last_entry['installers'])) {
-	  		$last_entry['installers'][$type][$arch] = array($edition => array_filter(compact('url')));
+	  		$last_entry['installers'][$type][$arch][$edition] = array_filter(compact('url'));
 	  	} else if ($type === 'source') {
-	  		$last_entry['source'] = array($edition => array_filter(compact('url')));
+	  		$last_entry['source'] = array($edition => array_filter(compact('url', 'filename')));
 	  	} else {
 			  $last_entry['installers'][$type] = array($arch => array($edition => array_filter(compact('url'))));
 	  	}
@@ -99,7 +87,7 @@ type
 	  	} else {
 			  $output['releases'][] = compact('version', 'created')
 				  + array($type =>
-						  array($edition => array_filter(compact('url')))
+						  array($edition => array_filter(compact('url', 'filename')))
 					  );
 	  	}
 	  }
