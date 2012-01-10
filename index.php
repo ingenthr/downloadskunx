@@ -53,6 +53,10 @@ function collectFor($product_string) {
 		  else                         $type = 'source';
 	  }
 
+	  // if the version string isn't found in the filename, than it's not one of
+	  // the typical patterns, and we don't care about it...at least we hope not.
+	  if ($version === null) continue;
+
 	  if (substr($filename, -3, 3) === 'md5') {
 	  	if ($type !== 'source') {
 		    $last_entry['installers'][$type][$arch][$edition]['md5'] = $file['name'];
