@@ -14,6 +14,11 @@ $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|'
 function collectFor($product_string) {
   global $contents;
 
+  $platform_names = array('rpm' => 'Red Hat',
+                          'deb' => 'Ubuntu',
+                          'exe' => 'Windows',
+                          'mac' => 'Mac OS X');
+
   $output = array('name' => $product_string,
               'releases' => array());
 
@@ -39,6 +44,10 @@ function collectFor($product_string) {
     // source only package...no edition
     if (preg_match("/([A-Za-z\-]*)_src-([0-9\.]*)[\.|_](.*)/", $filename, $matches) > 0) {
       list(, $product, $version, $postfix) = $matches;
+      if (substr($postfix, -3, 3) === 'md5') {
+        $last_entry['source'][$edition]['md5'] = $file['name'];
+        continue;
+      }
     } else {
       preg_match("/([A-Za-z\-]*)[-](enterprise|community)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
         $filename, $matches);
@@ -47,24 +56,19 @@ function collectFor($product_string) {
 
       if ($bits === '64') $arch .= '/64';
 
-      if ($type === 'win2008')     $type = 'exe';
-      else if (substr($postfix, 0, 3) === 'rpm') $type = 'rpm';
-      else if (substr($postfix, 0, 3) === 'deb') $type = 'deb';
-      else                         $type = 'source';
+      if (substr($postfix, 0, 9) === 'setup.exe') $type = 'exe';
+      else if (substr($postfix, 0, 3) === 'rpm')  $type = 'rpm';
+      else if (substr($postfix, 0, 3) === 'deb')  $type = 'deb';
+
+      if (substr($postfix, -3, 3) === 'md5') {
+        $last_entry['installers'][$type][$arch][$edition]['md5'] = $file['name'];
+        continue;
+      }
     }
 
     // if the version string isn't found in the filename, than it's not one of
     // the typical patterns, and we don't care about it...at least we hope not.
     if ($version === null) continue;
-
-    if (substr($filename, -3, 3) === 'md5') {
-      if ($type !== 'source') {
-        $last_entry['installers'][$type][$arch][$edition]['md5'] = $file['name'];
-      } else {
-        $last_entry['source'][$edition]['md5'] = $file['name'];
-      }
-      continue;
-    }
 
     $created = date('Y-m-d', $file['time']);
 
@@ -75,7 +79,7 @@ function collectFor($product_string) {
       } else if ($type === 'source') {
         $last_entry['source'] = array($edition => array_filter(compact('url', 'filename')));
       } else {
-        $last_entry['installers'][$type] = array($arch => array($edition => array_filter(compact('url'))));
+        $last_entry['installers'][$type] = array('title' => $platform_names[$type], $arch => array($edition => array_filter(compact('url'))));
       }
     } else {
       // create a new entry
@@ -83,7 +87,8 @@ function collectFor($product_string) {
         $output['releases'][] = compact('version', 'created')
           + array('installers'=>
               array($type =>
-                array($arch =>
+                array('title'=> $platform_names[$type],
+                $arch =>
                   array($edition => array_filter(compact('url')))
                 )
               )
