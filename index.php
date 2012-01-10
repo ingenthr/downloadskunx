@@ -97,6 +97,14 @@ function collectFor($product_string) {
 	  unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix);
 	}
 
+  function cmp($a, $b) {
+    if ($a == $b) {
+      return 0;
+    }
+    return ($a > $b) ? -1 : 1;
+  }
+  usort($output['releases'], 'cmp');
+
 	return $output;
 }
 
