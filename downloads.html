@@ -3,24 +3,29 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Couchbase Downloads</title>
+  <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+  <style type="text/css">
+  .cb-download-form{top:44px;z-index:1}
+  .cb-download{display:none}
+  </style>
 </head>
 <body>
-
+<div style="position:relative">
 <div class="cb-download-desc">
   Enterprise Edition or Community Edition. <a href="#">Which one is right for me?</a></div>
 <h3 class="step-1">
   Select a download</h3>
+<div class="cb-download-form">
+  <form>
+    <select>
+    {{#releases}}
+      <option name="{{version}}">{{version}}</option>
+    {{/releases}}
+    </select>
+  </form>
+</div>
 {{#releases}}
 <div class="cb-download" data-version="{{version}}">
-  <div class="cb-download-form">
-    <form>
-      <select>
-      {{#releases}}
-        <option name="{{version}}">{{version}}</option>
-      {{/releases}}
-      </select>
-    </form>
-  </div>
   <div class="cb-download-head-top">
     <div class="download-title">
       <h3>
@@ -122,6 +127,15 @@
     </div>
   </div>
 </div>
-
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+  $('.cb-download-form select').change(function(ev) {
+    $('.cb-download').fadeOut('fast');
+    $('.cb-download[data-version=' + $(ev.target).val() + ']').fadeIn('fast');
+  }).trigger('change');
+});
+</script>
 </body>
 </html>
