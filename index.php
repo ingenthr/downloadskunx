@@ -45,8 +45,9 @@ function collectFor($product_string) {
     $md5 = (array_key_exists($url . '.md5', $contents) ? $url . '.md5' : null);
 
     // source only package...no edition
-    if (preg_match("/([A-Za-z\-]*)_src-([0-9\.]*)[\.|_](.*)/", $filename, $matches) > 0) {
-      list(, $product, $version, $postfix) = $matches;
+    if (preg_match("/([A-Za-z\-]*)([-](enterprise|community)[_])?(_src-([0-9\.]*)|([0-9\.\-a-z]*)_src)[\.|_](.*)/", $filename, $matches) > 0) {
+      list(, $product, , $edition, , $version, $alt_version, $postfix) = $matches;
+      $version = $version === "" ? $alt_version : $version;
       $type = 'source';
     } else {
       preg_match("/([A-Za-z\-]*)[-](enterprise|community)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
