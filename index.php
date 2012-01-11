@@ -68,14 +68,16 @@ function collectFor($product_string) {
 
     $created = date('Y-m-d', $file['time']);
 
+    $urls = array_filter(compact('url', 'filename', 'md5'));
     if ($last_version === /*this*/ $version) {
       // append to the previous entry
       if (array_key_exists($type, $last_entry['installers'])) {
-        $last_entry['installers'][$type][$arch][$edition] = array_filter(compact('url', 'md5'));
+        $last_entry['installers'][$type][$arch][$edition] = $urls;
       } else if ($type === 'source') {
-        $last_entry['source'] = array_filter(compact('url', 'filename', 'md5'));
+        $last_entry['source'] = $urls;
       } else {
-        $last_entry['installers'][$type] = array('title' => $platform_names[$type], $arch => array($edition => array_filter(compact('url', 'md5'))));
+        $last_entry['installers'][$type] = array('title' => $platform_names[$type],
+                                                 $arch => array($edition => $urls));
       }
     } else {
       // create a new entry
@@ -84,16 +86,13 @@ function collectFor($product_string) {
           + array('installers'=>
               array($type =>
                 array('title'=> $platform_names[$type],
-                $arch =>
-                  array($edition => array_filter(compact('url', 'md5')))
+                      $arch => array($edition => $urls)
                 )
               )
             );
       } else {
         $output['releases'][] = compact('version', 'created')
-          + array($type =>
-              array_filter(compact('url', 'filename', 'md5'))
-            );
+          + array($type => $urls);
       }
     }
 
