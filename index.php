@@ -17,7 +17,7 @@ function collectFor($product_string) {
   $platform_names = array('rpm' => 'Red Hat',
                           'deb' => 'Ubuntu',
                           'exe' => 'Windows',
-                          'mac' => 'Mac OS X');
+                          'dmg' => 'Mac OS X');
 
   $output = array('name' => $product_string,
               'releases' => array());
@@ -32,6 +32,7 @@ function collectFor($product_string) {
     else if (strpos($version, '-') !== false) continue;
     else if ($filename === 'index.html') continue;
     else if (substr($filename, 0, strlen($product_string)) !== $product_string
+      || substr($filename, -3, 3) === 'md5'
       || substr($filename, -3, 3) === 'xml'
       || substr($filename, -3, 3) === 'txt'
       || substr($filename, 0, 10) === 'northscale'
@@ -41,13 +42,12 @@ function collectFor($product_string) {
       $last_entry =& $output['releases'][count($output['releases'])-1];
     }
 
+    $md5 = (array_key_exists($url . '.md5', $contents) ? $url . '.md5' : null);
+
     // source only package...no edition
     if (preg_match("/([A-Za-z\-]*)_src-([0-9\.]*)[\.|_](.*)/", $filename, $matches) > 0) {
       list(, $product, $version, $postfix) = $matches;
-      if (substr($postfix, -3, 3) === 'md5') {
-        $last_entry['source'][$edition]['md5'] = $file['name'];
-        continue;
-      }
+      $type = 'source';
     } else {
       preg_match("/([A-Za-z\-]*)[-](enterprise|community)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
         $filename, $matches);
@@ -59,11 +59,7 @@ function collectFor($product_string) {
       if (substr($postfix, 0, 9) === 'setup.exe') $type = 'exe';
       else if (substr($postfix, 0, 3) === 'rpm')  $type = 'rpm';
       else if (substr($postfix, 0, 3) === 'deb')  $type = 'deb';
-
-      if (substr($postfix, -3, 3) === 'md5') {
-        $last_entry['installers'][$type][$arch][$edition]['md5'] = $file['name'];
-        continue;
-      }
+      else if (substr($postfix, 0, 3) === 'dmg')  $type = 'dmg';
     }
 
     // if the version string isn't found in the filename, than it's not one of
@@ -75,11 +71,11 @@ function collectFor($product_string) {
     if ($last_version === /*this*/ $version) {
       // append to the previous entry
       if (array_key_exists($type, $last_entry['installers'])) {
-        $last_entry['installers'][$type][$arch][$edition] = array_filter(compact('url'));
+        $last_entry['installers'][$type][$arch][$edition] = array_filter(compact('url', 'md5'));
       } else if ($type === 'source') {
-        $last_entry['source'] = array($edition => array_filter(compact('url', 'filename')));
+        $last_entry['source'] = array_filter(compact('url', 'filename', 'md5'));
       } else {
-        $last_entry['installers'][$type] = array('title' => $platform_names[$type], $arch => array($edition => array_filter(compact('url'))));
+        $last_entry['installers'][$type] = array('title' => $platform_names[$type], $arch => array($edition => array_filter(compact('url', 'md5'))));
       }
     } else {
       // create a new entry
@@ -89,14 +85,14 @@ function collectFor($product_string) {
               array($type =>
                 array('title'=> $platform_names[$type],
                 $arch =>
-                  array($edition => array_filter(compact('url')))
+                  array($edition => array_filter(compact('url', 'md5')))
                 )
               )
             );
       } else {
         $output['releases'][] = compact('version', 'created')
           + array($type =>
-              array($edition => array_filter(compact('url', 'filename')))
+              array_filter(compact('url', 'filename', 'md5'))
             );
       }
     }
