@@ -6,10 +6,18 @@ $contents = require_once 'contents.php';
 
 $mimetype = (@$_GET['type'] === 'html' ? 'text/html' : 'application/json');
 
-/*
-$s3 = new S3('accessKey', 'secretKey');
-$contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
-*/
+if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
+  $contents = require_once 'contents.php';
+} else if ($_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com' || @$_GET['fromS3'] === 'true') {
+  require_once 'S3.php';
+  $s3 = new S3($accessKey, $secretKey);
+  $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
+  if (function_exists('cache_set')) {
+    cache_set('s3downloadsListing', $contents);
+  }
+} else {
+  $contents = cache_get('s3downloadsListing');
+}
 
 function collectFor($product_string) {
   global $contents;
