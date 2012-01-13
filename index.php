@@ -4,7 +4,7 @@ require_once 'S3.php';
 
 $contents = require_once 'contents.php';
 
-$mimetype = (@$_GET['type'] === 'html' ? 'text/html' : 'application/json');
+$mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
   $contents = require_once 'contents.php';
@@ -19,8 +19,7 @@ if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
   $contents = cache_get('s3downloadsListing');
 }
 
-function collectFor($product_string) {
-  global $contents;
+function collectFor($product_string, $contents) {
 
   $platform_names = array('rpm' => 'Red Hat',
                           'deb' => 'Ubuntu',
@@ -80,7 +79,7 @@ function collectFor($product_string) {
     $urls = array_filter(compact('url', 'filename', 'md5'));
     if ($last_version === /*this*/ $version) {
       // append to the previous entry
-      if (array_key_exists($type, $last_entry['installers'])) {
+      if (is_array($last_entry['installers']) && array_key_exists($type, $last_entry['installers'])) {
         $last_entry['installers'][$type][$arch][$edition] = $urls;
       } else if ($type === 'source') {
         $last_entry['source'] = $urls;
@@ -123,7 +122,7 @@ function collectFor($product_string) {
 
 header('Content-Type: ' . $mimetype);
 
-$membase_releases = collectFor('membase-server');
+$membase_releases = collectFor('membase-server', $contents);
 
 if ($mimetype === 'application/json') {
   print_r(json_encode($membase_releases));
