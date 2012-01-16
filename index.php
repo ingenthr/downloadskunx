@@ -1984,10 +1984,10 @@ if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
 
 function collectFor($product_string, $contents) {
 
-  $platform_names = array('rpm' => 'Red Hat',
-                          'deb' => 'Ubuntu',
-                          'exe' => 'Windows',
-                          'dmg' => 'Mac OS X');
+  $platform_names = array('rpm' => array('title'=>'Red Hat',  'icon'=>'redhat'),
+                          'deb' => array('title'=>'Ubuntu',   'icon'=>'ubuntu'),
+                          'exe' => array('title'=>'Windows',  'icon'=>'windows'),
+                          'dmg' => array('title'=>'Mac OS X', 'icon'=>'mac'));
 
   $output = array('name' => $product_string,
               'releases' => array());
@@ -2047,8 +2047,7 @@ function collectFor($product_string, $contents) {
       } else if ($type === 'source') {
         $last_entry['source'] = $urls;
       } else {
-        $last_entry['installers'][$type] = array('title' => $platform_names[$type],
-                                                 $arch => array($edition => $urls));
+        $last_entry['installers'][$type] = array_merge($platform_names[$type], array($arch => array($edition => $urls)));
       }
     } else {
       // create a new entry
@@ -2056,8 +2055,7 @@ function collectFor($product_string, $contents) {
         $output['releases'][] = compact('version', 'created')
           + array('installers'=>
               array($type =>
-                array('title'=> $platform_names[$type],
-                      $arch => array($edition => $urls)
+                array_merge($platform_names[$type], array($arch => array($edition => $urls))
                 )
               )
             );
