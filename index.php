@@ -1,8 +1,7 @@
 <?php
 
-require_once 'S3.php';
-
-$contents = require_once 'contents.php';
+$accessKey = 'REPLACE ME';
+$secretKey = 'REPLACE ME';
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
@@ -110,10 +109,10 @@ function collectFor($product_string, $contents) {
   }
 
   function cmp($a, $b) {
-    if ($a == $b) {
+    if ($a['version'] == $b['version']) {
       return 0;
     }
-    return ($a > $b) ? -1 : 1;
+    return ($a['version'] > $b['version']) ? -1 : 1;
   }
   usort($output['releases'], 'cmp');
 
