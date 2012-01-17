@@ -18,6 +18,15 @@ if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
   $contents = cache_get('s3downloadsListing');
 }
 
+// cmp is a comparitor function used in collectFor.
+// It really should be a lamda, but alas we're still on PHP 5.2.x
+function cmp($a, $b) {
+  if ($a['version'] == $b['version']) {
+    return 0;
+  }
+  return ($a['version'] > $b['version']) ? -1 : 1;
+}
+
 function collectFor($product_string, $contents) {
 
   $platform_names = array('rpm' => array('title'=>'Red Hat',  'icon'=>'redhat'),
@@ -56,10 +65,16 @@ function collectFor($product_string, $contents) {
       $version = $version === "" ? $alt_version : $version;
       $type = 'source';
     } else {
-      preg_match("/([A-Za-z\-]*)[-](enterprise|community)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
+      preg_match("/([A-Za-z\-]*)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
         $filename, $matches);
+      list(, $product, , , $arch, $bits, $version, $postfix) = $matches;
 
-      list(, $product, $edition, , $type, $arch, $bits, $version, $postfix) = $matches;
+      preg_match("/.*(enterprise|community)$/", $product, $edition_matches);
+      if (count($edition_matches) > 1) {
+        list (, $edition) = $edition_matches;
+      } else {
+        $edition = 'community';
+      }
 
       if ($bits === '64') $arch .= '/64';
 
@@ -103,15 +118,9 @@ function collectFor($product_string, $contents) {
 
     $last_version = $version;
 
-    unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix);
+    unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix, $matches, $edition_matches);
   }
 
-  function cmp($a, $b) {
-    if ($a['version'] == $b['version']) {
-      return 0;
-    }
-    return ($a['version'] > $b['version']) ? -1 : 1;
-  }
   usort($output['releases'], 'cmp');
 
   return $output;
