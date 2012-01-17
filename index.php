@@ -34,8 +34,9 @@ function collectFor($product_string, $contents) {
                           'exe' => array('title'=>'Windows',  'icon'=>'windows'),
                           'dmg' => array('title'=>'Mac OS X', 'icon'=>'mac'));
 
-  $output = array('name' => $product_string,
-              'releases' => array());
+  $output = array('id' => $product_string,
+                  'title' => ucwords(str_replace('-', ' ', $product_string)),
+                  'releases' => array());
 
   $last_version = 0;
   foreach ($contents as $file) {
@@ -128,12 +129,19 @@ function collectFor($product_string, $contents) {
 
 header('Content-Type: ' . $mimetype);
 
-$membase_releases = collectFor('membase-server', $contents);
+$product_names = array('membase-server', 'moxi-server');
+$products = array();
+
+foreach ($product_names as $product_name) {
+  $products[] = collectFor($product_name, $contents);
+}
+
+$products = array('products' => $products);
 
 if ($mimetype === 'application/json') {
-  print_r(json_encode($membase_releases));
+  print_r(json_encode($products));
 } else {
   require_once 'Mustache.php';
   $m = new Mustache();
-  echo $m->render(file_get_contents('downloads.html'), $membase_releases, array('installer' => file_get_contents('installer.html')));
+  echo $m->render(file_get_contents('downloads.html'), $products, array('installer' => file_get_contents('installer.html')));
 }
