@@ -44,6 +44,7 @@ function collectFor($product_string, $contents) {
     list(, $version, $filename) = explode('/', $file['name']);
 
     if ($filename === "") continue;
+    else if ($version < 1.7) continue;
     else if (!is_numeric($version[0])) continue;
     else if (strpos($version, '-') !== false) continue;
     else if ($filename === 'index.html') continue;
