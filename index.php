@@ -47,12 +47,16 @@ function collectFor($product_string, $contents) {
     else if (!is_numeric($version[0])) continue;
     else if (strpos($version, '-') !== false) continue;
     else if ($filename === 'index.html') continue;
-    else if (substr($filename, 0, strlen($product_string)) !== $product_string
-      || substr($filename, -3, 3) === 'md5'
+    else if (substr($filename, -3, 3) === 'md5'
       || substr($filename, -3, 3) === 'xml'
       || substr($filename, -3, 3) === 'txt'
       || substr($filename, 0, 10) === 'northscale'
       || substr($filename, 0, 15) === 'CouchbaseServer') continue;
+    else if ($product_string === 'couchbase-server'
+            && substr($filename, 0, strlen($product_string)) !== $product_string
+            && substr($filename, 0, strlen('membase-server')) !== 'membase-server') continue;
+    else if ($product_string !== 'couchbase-server'
+            && substr($filename, 0, strlen($product_string)) !== $product_string) continue;
 
     if (count($output['releases']) > 0) {
       $last_entry =& $output['releases'][count($output['releases'])-1];
@@ -129,7 +133,7 @@ function collectFor($product_string, $contents) {
 
 header('Content-Type: ' . $mimetype);
 
-$product_names = array('membase-server', 'moxi-server');
+$product_names = array('couchbase-server', 'moxi-server');
 $products = array();
 
 foreach ($product_names as $product_name) {
