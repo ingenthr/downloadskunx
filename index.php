@@ -181,5 +181,169 @@ if ($mimetype === 'application/json') {
 } else {
   require_once 'Mustache.php';
   $m = new Mustache();
-  echo $m->render(file_get_contents('downloads.html'), $products, array('installer' => file_get_contents('installer.html')));
+
+  $main = <<<EOD
+{{>header}}
+<style type="text/css">
+.cb-download-form{top:44px;z-index:1}
+.cb-download{display:none}
+</style>
+<div>
+{{#products}}
+<div style="position:relative" id="{{id}}">
+<div class="cb-download-desc">
+  Enterprise Edition or Community Edition. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
+<h3 class="step-1">
+  {{title}} Downloads</h3>
+<div class="cb-download-form">
+  <form>
+    <select>
+    {{#releases}}
+      <option name="{{version}}">{{version}}</option>
+    {{/releases}}
+    </select>
+  </form>
+</div>
+{{#releases}}
+<div class="cb-download" data-version="{{version}}">
+  <div class="cb-download-head-top">
+    <div class="download-title">
+      <h3>
+        Operating System</h3>
+    </div>
+    <div class="head-title">
+      <h2>
+        Enterprise Edition</h2>
+      <p>
+        Most stable binaries certified for production</p>
+    </div>
+    <div class="head-title">
+      <h2>
+        Community Edition</h2>
+      <p>
+        Binaries recommended for non-commercial use</p>
+    </div>
+    <div class="download-free">
+      Free Download</div>
+    <div class="download-free">
+      Free Download</div>
+  </div>
+  {{#installers}}
+    {{#deb}}<div class="cb-download-row">{{>installer}}</div>{{/deb}}
+    {{#rpm}}<div class="cb-download-row">{{>installer}}</div>{{/rpm}}
+    {{#exe}}<div class="cb-download-row">{{>installer}}</div>{{/exe}}
+  {{/installers}}
+  {{#source}}
+  <div class="cb-download-row-last">
+    <div class="download-title">
+      <h4>Download Sources Files:</h4>
+    </div>
+    <div class="download-col1"></a></div>
+    <div class="download-col2">
+      <a href="{{url}}">{{filename}}</a></div>
+  </div>
+  {{/source}}
+</div>
+{{/releases}}
+</div>
+{{/products}}
+</div>
+<p class="cb-all-downloads">
+  <b><a class="first" href="/downloads-all">View all of our Downloads</a></b> &nbsp;&nbsp; <a href="/couchbase-single-server">Looking for Couchbase Single Server?</a></p>
+<div class="container-6-inner">
+  <div class="grid-4 first">
+    <h3 class="step-2">
+      Watch how to quick start your cluster</h3>
+    <iframe src="http://player.vimeo.com/video/35242219?title=0&amp;byline=0&amp;portrait=0&amp;color=A30A0A" width="644" height="362" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  <div class="grid-2 last">
+    <h3 class="step-3">
+      Download client libraries</h3>
+    <div class="sidebar-width">
+      <div class="sidebar-box" style="height:322px">
+        <div class="section">
+          <ul>
+            <li class="first">
+              <a href="/develop/java/current">Java Client Library</a></li>
+            <li>
+              <a href="/develop/net/current">.NET Client Library</a></li>
+            <li>
+              <a href="/develop/php/current">PHP Client Library</a></li>
+            <li>
+              <a href="/develop/Ruby/current">Ruby Client Library</a></li>
+            <li>
+              <a href="/develop/c/current">C Client Library</a></li>
+            <li class="last">
+              <a href="/develop">Additional SDK&#39;s</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+  {{#products}}
+  $('#{{id}}').find('.cb-download-form select').change(function(ev) {
+    $('#{{id}}').find('.cb-download').fadeOut('fast');
+    $('#{{id}}').find('.cb-download[data-version=' + $(ev.target).val() + ']').fadeIn('fast');
+  }).trigger('change');
+  {{/products}}
+});
+</script>
+{{>footer}}
+EOD;
+
+  $installer = <<<EOD
+    <div class="download-title">
+      <div class="logo">
+        <img alt="" src="/sites/default/files/uploads/all/images/logo_{{icon}}.png" /></div>
+      <h4>
+        64-bit {{title}}</h4>
+      <h4>
+        32-bit {{title}}</h4>
+      <div class="instructions">
+        <a href="#">Install instructions</a></div>
+    </div>
+    {{#x86/64.enterprise}}
+    <div class="download-col1">
+      <p>
+        <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
+      <p>
+        <a href="http://packages.couchbase.com/{{x86.enterprise.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
+      <p class="notes">
+        <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
+    </div>
+    {{/x86/64.enterprise}}
+    {{^x86/64.enterprise}}
+    <div class="download-col1">
+      <p>N/A</p>
+      <p>N/A</p>
+    </div>
+    {{/x86/64.enterprise}}
+
+    {{#x86/64.community}}
+    <div class="download-col2">
+      <p>
+        <a href="http://packages.couchbase.com/{{x86/64.community.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
+      <p>
+        <a href="http://packages.couchbase.com/{{x86.community.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
+      <p class="notes">
+        <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
+    </div>
+    {{/x86/64.community}}
+    {{^x86/64.community}}
+    <div class="download-col1">
+      <p>N/A</p>
+      <p>N/A</p>
+    </div>
+    {{/x86/64.community}}
+EOD;
+
+  $partials = compact('installer');
+  if ($_SERVER['SERVER_NAME'] === 'localhost') {
+    $partials += array('header' => file_get_contents('header.html'),
+                      'footer' => file_get_contents('footer.html'));
+  }
+  echo $m->render($main, $products, $partials);
 }
