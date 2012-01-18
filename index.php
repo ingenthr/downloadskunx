@@ -3047,7 +3047,7 @@ if ($mimetype === 'application/json') {
   <div class="grid-4 first">
     <h3 class="step-2">
       Watch how to quick start your cluster</h3>
-    <img alt="" src="/sites/default/files/uploads/all/images/video.png" style="width: 644px; height: 362px;" /></div>
+    <iframe src="http://player.vimeo.com/video/35242219?title=0&amp;byline=0&amp;portrait=0&amp;color=A30A0A" width="644" height="362" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
   <div class="grid-2 last">
     <h3 class="step-3">
       Download client libraries</h3>
