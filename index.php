@@ -7,12 +7,14 @@ $secretKey = 'REPLACE ME';
 define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? true : false)); // for /downloads
 //define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? false : true)); // for /downloads-all
 
+define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download');
+
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
-  $contents = require_once 'contents.php';
+  $contents = require_once INCLUDE_PATH.'contents.php';
 } else if ($_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com' || @$_GET['fromS3'] === 'true') {
-  require_once 'S3.php';
+  require_once INCLUDE_PATH.'S3.php';
   $s3 = new S3($accessKey, $secretKey);
   $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
   if (function_exists('cache_set')) {
@@ -179,7 +181,7 @@ $products = array('products' => $products);
 if ($mimetype === 'application/json') {
   print_r(json_encode($products));
 } else {
-  require_once 'Mustache.php';
+  require_once INCLUDE_PATH.'Mustache.php';
   $m = new Mustache();
 
   $main = <<<EOD
