@@ -79,12 +79,14 @@ function collectFor($product_string, $contents) {
         $filename, $matches);
       list(, $product, , , $arch, $bits, $version, $postfix) = $matches;
 
-      preg_match("/.*(enterprise|community)$/", $product, $edition_matches);
+      preg_match("/(.*)[-](enterprise|community)$/", $product, $edition_matches);
       if (count($edition_matches) > 1) {
-        list (, $edition) = $edition_matches;
+        list (, $product, $edition) = $edition_matches;
       } else {
         $edition = 'community';
       }
+
+      $product = str_replace('-server', '', $product);
 
       if ($bits === '64') $arch .= '/64';
 
@@ -115,7 +117,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('major_version', 'version', 'created')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -123,7 +125,7 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('major_version', 'version', 'created')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product')
           + array($type => $urls);
       }
     }
