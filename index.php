@@ -143,6 +143,31 @@ foreach ($product_names as $product_name) {
   $products[] = collectFor($product_name, $contents);
 }
 
+if (@$_GET['by_version'] === 'true') {
+  $products_by_major_version = array();
+  foreach ($products as $product) {
+    foreach ($product['releases'] as $release) {
+      if (isset($major_version) && $major_version === $release['major_version']) {
+        $current_product['releases'][] = $release;
+      } else {
+        if (isset($current_product)) {
+          $products_by_major_version[] = $current_product;
+        }
+        $major_version = $release['major_version'];
+        $current_product = array(
+          'id'=> $product['id'] . '-' . str_replace('.', '-', $major_version),
+          'title'=>$product['title'] . ' ' . $major_version,
+          'releases'=> array($release)
+        );
+      }
+    }
+  }
+
+  // Throw the final current_product into the stack.
+  $products_by_major_version[] = $current_product;
+
+  $products = $products_by_major_version;
+}
 $products = array('products' => $products);
 
 if ($mimetype === 'application/json') {
