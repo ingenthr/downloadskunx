@@ -2988,7 +2988,7 @@ if ($mimetype === 'application/json') {
 </style>
 <div style="position:relative">
 <div class="cb-download-desc">
-  Enterprise Edition or Community Edition. <a href="#">Which one is right for me?</a></div>
+  Enterprise Edition or Community Edition. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
 <h3 class="step-1">
   Select a download</h3>
 <div class="cb-download-form">
@@ -3011,13 +3011,13 @@ if ($mimetype === 'application/json') {
       <h2>
         Enterprise Edition</h2>
       <p>
-        Stable software mean for production use</p>
+        Most stable binaries certified for production</p>
     </div>
     <div class="head-title">
       <h2>
         Community Edition</h2>
       <p>
-        Want to play with the latest bits?</p>
+        Binaries recommended for non-commercial use</p>
     </div>
     <div class="download-free">
       Free Download</div>
@@ -3034,8 +3034,7 @@ if ($mimetype === 'application/json') {
     <div class="download-title">
       <h4>Download Sources Files:</h4>
     </div>
-    <div class="download-col1">
-      <a href="{{url}}">{{filename}}</a></div>
+    <div class="download-col1"></a></div>
     <div class="download-col2">
       <a href="{{url}}">{{filename}}</a></div>
   </div>
@@ -3043,7 +3042,7 @@ if ($mimetype === 'application/json') {
 </div>
 {{/releases}}
 <p class="cb-all-downloads">
-  <b><a class="first" href="#">View all of our Downloads here</a></b> &nbsp;&nbsp; <a href="#">Looking for Couchbase Single Server?</a></p>
+  <b><a class="first" href="/downloads-all">View all of our Downloads</a></b> &nbsp;&nbsp; <a href="/couchbase-single-server">Looking for Couchbase Single Server?</a></p>
 <div class="container-6-inner">
   <div class="grid-4 first">
     <h3 class="step-2">
@@ -3057,17 +3056,17 @@ if ($mimetype === 'application/json') {
         <div class="section">
           <ul>
             <li class="first">
-              <a href="#">Java Client Library</a></li>
+              <a href="/develop/java/current">Java Client Library</a></li>
             <li>
-              <a href="#">.NET Client Library</a></li>
+              <a href="/develop/net/current">.NET Client Library</a></li>
             <li>
-              <a href="#">PHP Client Library</a></li>
+              <a href="/develop/php/current">PHP Client Library</a></li>
             <li>
-              <a href="#">Ruby Client Library</a></li>
+              <a href="/develop/Ruby/current">Ruby Client Library</a></li>
             <li>
-              <a href="#">C Client Library</a></li>
+              <a href="/develop/c/current">C Client Library</a></li>
             <li class="last">
-              <a href="#">Additional SDK&#39;s</a></li>
+              <a href="/develop">Additional SDK&#39;s</a></li>
           </ul>
         </div>
       </div>
