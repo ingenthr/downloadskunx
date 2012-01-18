@@ -93,6 +93,8 @@ function collectFor($product_string, $contents) {
     // if the version string isn't found in the filename, than it's not one of
     // the typical patterns, and we don't care about it...at least we hope not.
     if ($version === null) continue;
+    $major_version = substr($version, 0, strpos($version, '.', 3));
+    // PHP5.3 edition: $major_version = strstr($version, '.', true);
 
     $created = date('Y-m-d', $file['time']);
 
@@ -109,7 +111,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('version', 'created')
+        $output['releases'][] = compact('major_version', 'version', 'created')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -117,7 +119,7 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('version', 'created')
+        $output['releases'][] = compact('major_version', 'version', 'created')
           + array($type => $urls);
       }
     }
