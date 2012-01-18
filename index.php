@@ -3,6 +3,10 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
+// Swap the true/false to enable/disable by_version output:
+define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? true : false)); // for /downloads
+//define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? false : true)); // for /downloads-all
+
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
@@ -143,7 +147,7 @@ foreach ($product_names as $product_name) {
   $products[] = collectFor($product_name, $contents);
 }
 
-if (@$_GET['by_version'] === 'true') {
+if (BY_VERSION === true) {
   $products_by_major_version = array();
   foreach ($products as $product) {
     foreach ($product['releases'] as $release) {
