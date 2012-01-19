@@ -3,11 +3,16 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
-// Swap the true/false to enable/disable by_version output:
-define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? true : false)); // for /downloads
-//define('BY_VERSION', (isset($_GET['by_version']) && $_GET['by_version'] === 'true' ? false : true)); // for /downloads-all
-
 define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download');
+
+// Swap the true/false to enable/disable by_version output:
+// for /download
+define('BY_VERSION', false);
+$product_names = array('couchbase-server');
+
+// for /downloads-all
+//define('BY_VERSION', true);
+//$product_names = array('couchbase-server', 'moxi-server');
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
@@ -144,7 +149,6 @@ function collectFor($product_string, $contents) {
 
 header('Content-Type: ' . $mimetype);
 
-$product_names = array('couchbase-server', 'moxi-server');
 $products = array();
 
 foreach ($product_names as $product_name) {
