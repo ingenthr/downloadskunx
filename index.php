@@ -9,11 +9,12 @@ define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/ww
 // for /download
 define('BY_VERSION', false);
 $product_names = array('couchbase-server');
+$develop_node_id = null;
 
 // for /downloads-all
 //define('BY_VERSION', true);
 //$product_names = array('couchbase-server', 'moxi-server');
-$develop_node_id = 1033;
+//$develop_node_id = null; // 1033 is the *full* Develop page...not what we want
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
@@ -353,7 +354,8 @@ EOD;
     {{/x86/64.community}}
 EOD;
 
-  if ($products['multiple_products'] && $_SERVER['SERVER_NAME'] !== 'localhost') {
+  if ($products['multiple_products'] && $_SERVER['SERVER_NAME'] !== 'localhost'
+      && $develop_node_id !== null) {
     $node = node_load($develop_node_id);
     $develop = node_view($node);
     watchdog('node1033content', '%develop', array('%develop'=>$develop));
