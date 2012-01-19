@@ -13,6 +13,7 @@ $product_names = array('couchbase-server');
 // for /downloads-all
 //define('BY_VERSION', true);
 //$product_names = array('couchbase-server', 'moxi-server');
+$develop_node_id = 1033;
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
@@ -181,6 +182,7 @@ if (BY_VERSION === true) {
   $products = $products_by_major_version;
 }
 $products = array('products' => $products);
+$products['multiple_products'] = (count($product_names) > 1) ? true : false;
 
 if ($mimetype === 'application/json') {
   print_r(json_encode($products));
@@ -199,7 +201,7 @@ if ($mimetype === 'application/json') {
 <div style="position:relative" id="{{id}}">
 <div class="cb-download-desc">
   Enterprise Edition or Community Edition. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
-<h3 class="step-1">
+<h3{{^multiple_products}} class="step-1"{{/multiple_products}}>
   {{title}} Downloads</h3>
 <div class="cb-download-form">
   <form>
@@ -256,6 +258,7 @@ if ($mimetype === 'application/json') {
 </div>
 <p class="cb-all-downloads">
   <b><a class="first" href="/downloads-all">View all of our Downloads</a></b> &nbsp;&nbsp; <a href="/couchbase-single-server">Looking for Couchbase Single Server?</a></p>
+{{^multiple_products}}
 <div class="container-6-inner">
   <div class="grid-4 first">
     <h3 class="step-2">
@@ -286,6 +289,10 @@ if ($mimetype === 'application/json') {
     </div>
   </div>
 </div>
+{{/multiple_products}}
+{{#multiple_products}}
+  {{>develop}}
+{{/multiple_products}}
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
@@ -346,7 +353,14 @@ EOD;
     {{/x86/64.community}}
 EOD;
 
-  $partials = compact('installer');
+  if ($products['multiple_products'] && $_SERVER['SERVER_NAME'] !== 'localhost') {
+    $node = node_load($develop_node_id);
+    $develop = node_view($node);
+    watchdog('node1033content', '%develop', array('%develop'=>$develop));
+  } else {
+    $develop = '';
+  }
+  $partials = compact('installer', 'develop');
   if ($_SERVER['SERVER_NAME'] === 'localhost') {
     $partials += array('header' => file_get_contents('header.html'),
                       'footer' => file_get_contents('footer.html'));
