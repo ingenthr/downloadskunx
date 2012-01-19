@@ -246,7 +246,7 @@ if ($mimetype === 'application/json') {
     <div class="download-title">
       <h4>Download Sources Files:</h4>
     </div>
-    <div class="download-col1"></a></div>
+    <div class="download-col1"></div>
     <div class="download-col2">
       <a href="{{url}}">{{filename}}</a></div>
   </div>
