@@ -3,7 +3,7 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
-define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download');
+define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
 
 // Swap the true/false to enable/disable by_version output:
 // for /download
