@@ -59,7 +59,6 @@ function collectFor($product_string, $contents) {
     if ($filename === "") continue;
     else if ($version < 1.7) continue;
     else if (!is_numeric($version[0])) continue;
-    else if (strpos($version, '-') !== false) continue;
     else if ($filename === 'index.html') continue;
     else if (substr($filename, -3, 3) === 'md5'
       || substr($filename, -3, 3) === 'xml'
@@ -84,9 +83,9 @@ function collectFor($product_string, $contents) {
       $version = $version === "" ? $alt_version : $version;
       $type = 'source';
     } else {
-      preg_match("/([A-Za-z\-]*)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*)[\.|_](.*)/",
+      preg_match("/([A-Za-z\-]*)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?)[\.|_](.*)/",
         $filename, $matches);
-      list(, $product, , , $arch, $bits, $version, $postfix) = $matches;
+      list(, $product, , , $arch, $bits, $version, , $postfix) = $matches;
 
       preg_match("/(.*)[-](enterprise|community)$/", $product, $edition_matches);
       if (count($edition_matches) > 1) {
