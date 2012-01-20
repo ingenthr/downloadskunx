@@ -201,7 +201,7 @@ if ($mimetype === 'application/json') {
 {{#products}}
 <div style="position:relative" id="{{id}}">
 <div class="cb-download-desc">
-  Enterprise Edition or Community Edition. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
+  Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
 <h3{{^multiple_products}} class="step-1"{{/multiple_products}}>
   {{title}} Downloads</h3>
 <div class="cb-download-form">
