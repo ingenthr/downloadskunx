@@ -42,10 +42,10 @@ function cmp($a, $b) {
 
 function collectFor($product_string, $contents) {
 
-  $platform_names = array('rpm' => array('title'=>'Red Hat',  'icon'=>'redhat'),
-                          'deb' => array('title'=>'Ubuntu',   'icon'=>'ubuntu'),
-                          'exe' => array('title'=>'Windows',  'icon'=>'windows'),
-                          'dmg' => array('title'=>'Mac OS X', 'icon'=>'mac'));
+  $platform_names = array('rpm' => array('title'=>'Red Hat',  'icon'=>'redhat', 'is_rpm'=> true),
+                          'deb' => array('title'=>'Ubuntu',   'icon'=>'ubuntu', 'is_deb'=> true),
+                          'exe' => array('title'=>'Windows',  'icon'=>'windows', 'is_exe'=> true),
+                          'dmg' => array('title'=>'Mac OS X', 'icon'=>'mac', 'is_dmg'=> true));
 
   $output = array('id' => $product_string,
                   'title' => ucwords(str_replace('-', ' ', $product_string)),
@@ -200,8 +200,10 @@ if ($mimetype === 'application/json') {
 <div>
 {{#products}}
 <div style="position:relative" id="{{id}}">
+{{^multiple_products}}
 <div class="cb-download-desc">
   Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
+{{/multiple_products}}
 <h3{{^multiple_products}} class="step-1"{{/multiple_products}}>
   {{title}} Downloads</h3>
 <div class="cb-download-form">
@@ -302,6 +304,16 @@ jQuery(function($) {
     $('#{{id}}').find('.cb-download[data-version=' + $(ev.target).val() + ']').fadeIn('fast');
   }).trigger('change');
   {{/products}}
+
+  $('.download-instruction').bt({
+    contentSelector: "$(this).siblings('.instruction').html()",
+    width: 700,
+    fill: 'white',
+    cornerRadius: 20,
+    padding: 20,
+    strokeWidth: 1,
+    trigger: ['mouseover', 'click']
+  });
 });
 </script>
 {{>footer}}
@@ -316,7 +328,60 @@ EOD;
       <h4>
         32-bit {{title}}</h4>
       <div class="instructions">
-        <a href="#">Install instructions</a></div>
+        <a class="download-instruction">Install instructions</a>
+        <div class="instruction" style="display:none;">
+          <p><strong>Install Instructions</strong></p>
+          <p>&nbsp;</p>
+          {{#is_deb}}
+          <p><strong>Ubuntu</strong></p>
+          <ol>
+            <li>
+              Download or transfer the download to your Ubuntu system.</li>
+            <li>
+              Install the package using the dpkg command as a priviledged user under sudo.<br />
+              For example:<br />
+              <pre>
+        sudo dpkg -i {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
+            </li>
+          </ol>
+          {{/is_deb}}
+          {{#is_rpm}}
+          <p><strong>CentOS or Red Hat</strong></p>
+          <ol>
+            <li>
+              Download or transfer the download to your CentOS or Red Hat system.</li>
+            <li>
+              Install the package using the rpm command as a privilged user under sudo.<br />
+              For example:<br />
+              <pre>
+        sudo rpm --install {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
+            </li>
+          </ol>
+          {{/is_rpm}}
+          {{#is_exe}}
+          <p><strong>Windows</strong></p>
+          <ol>
+            <li>
+              Locate the download on your system or transfer it to the system on which you plan to install Couchbase Server.</li>
+            <li>
+              Double click the {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</li>
+          </ol>
+          <p>You may then open your web browser and navigate to http://&lt;servername&gt;:8091/ to configure your new Couchbase Server installation.</p>
+          {{/is_exe}}
+          {{#is_dmg}}
+          <p><strong>MacOS X</strong></p>
+          <ol>
+            <li>
+              Locate and double click the download to unzip it.</li>
+            <li>
+              Click and drag the enclosed Couchbase Server application to the Applications folder.</li>
+            <li>
+              Double click the Couchbase Server application in the applications folder.</li>
+          </ol>
+          <p>Your web browser should then open to the web console from which you can configure your new Couchbase Server installation.</p>
+          {{/is_dmg}}
+        </div>
+      </div>
     </div>
     {{#x86/64.enterprise}}
     <div class="download-col1">
