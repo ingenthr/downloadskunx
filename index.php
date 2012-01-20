@@ -270,7 +270,7 @@ if ($mimetype === 'application/json') {
           <li>Free for production up to two nodes</li>
           <li>Annual subscription available, includes support and hot-fixes</li>
         </ul>
-        <a href="/couchbase-server/editions">Find out more</a>
+        <a href="/couchbase-server/editions">Learn More</a>
       </div>
     </div>
     <div class="download-free">
@@ -283,7 +283,7 @@ if ($mimetype === 'application/json') {
           <li>No constraints on using binaries on production systems</li>
           <li>Help available from the Couchbase user community</li>
         </ul>
-        <a href="/couchbase-server/editions">Find out more</a>
+        <a href="/couchbase-server/editions">Learn More</a>
       </div>
     </div>
   </div>
