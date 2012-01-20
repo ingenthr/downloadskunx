@@ -5642,16 +5642,16 @@ return array (
     'size' => 2678,
     'hash' => '1609d8060d1b76882e96c98b1fe7bb7a',
   ),
-  'releases/1.8.0/couchbase-server-community_x64_64_1.8.0.dmg' =>
+  'releases/1.8.0/couchbase-server-community_x86_64_1.8.0.dmg' =>
   array (
-    'name' => 'releases/1.8.0/couchbase-server-community_x64_64_1.8.0.dmg',
+    'name' => 'releases/1.8.0/couchbase-server-community_x86_64_1.8.0.dmg',
     'time' => 1327013967,
     'size' => 45481767,
     'hash' => 'ee74ac2a6757284502cc069b387096d5',
   ),
-  'releases/1.8.0/couchbase-server-community_x64_64_1.8.0.dmg.md5' =>
+  'releases/1.8.0/couchbase-server-community_x86_64_1.8.0.dmg.md5' =>
   array (
-    'name' => 'releases/1.8.0/couchbase-server-community_x64_64_1.8.0.dmg.md5',
+    'name' => 'releases/1.8.0/couchbase-server-community_x86_64_1.8.0.dmg.md5',
     'time' => 1327013987,
     'size' => 87,
     'hash' => '8b99cb7fd02a4d7118cb74b595184ab8',
