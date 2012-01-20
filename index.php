@@ -232,10 +232,10 @@ if ($mimetype === 'application/json') {
       <p>
         Binaries recommended for non-commercial use</p>
     </div>
-    <div class="download-free">
+    <!--<div class="download-free">
       Free Download</div>
     <div class="download-free">
-      Free Download</div>
+      Free Download</div>-->
   </div>
   {{#installers}}
     {{#deb}}<div class="cb-download-row">{{>installer}}</div>{{/deb}}
