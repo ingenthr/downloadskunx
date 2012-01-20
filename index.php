@@ -398,7 +398,7 @@ EOD;
               Install the package using the dpkg command as a priviledged user under sudo.<br />
               For example:<br />
               <pre>
-        sudo dpkg -i {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
+        sudo dpkg -i {{#x86/64.enterprise.filename}}{{x86/64.enterprise.filename}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
             </li>
           </ol>
           {{/is_deb}}
@@ -411,7 +411,7 @@ EOD;
               Install the package using the rpm command as a privilged user under sudo.<br />
               For example:<br />
               <pre>
-        sudo rpm --install {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
+        sudo rpm --install {{#x86/64.enterprise.filename}}{{x86/64.enterprise.filename}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</pre>
             </li>
           </ol>
           {{/is_rpm}}
@@ -421,7 +421,7 @@ EOD;
             <li>
               Locate the download on your system or transfer it to the system on which you plan to install Couchbase Server.</li>
             <li>
-              Double click the {{#x86/64.enterprise.filename}}{{.}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</li>
+              Double click the {{#x86/64.enterprise.filename}}{{x86/64.enterprise.filename}}{{/x86/64.enterprise.filename}}{{^x86/64.enterprise.filename}}{{x86/64.community.filename}}{{/x86/64.enterprise.filename}}</li>
           </ol>
           <p>You may then open your web browser and navigate to http://&lt;servername&gt;:8091/ to configure your new Couchbase Server installation.</p>
           {{/is_exe}}
