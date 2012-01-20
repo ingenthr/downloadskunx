@@ -225,7 +225,7 @@ if ($mimetype === 'application/json') {
 </style>
 <div>
 {{#products}}
-<div style="position:relative" id="{{id}}">
+<div style="position:relative" id="{{id}}" {{#multiple_products}}style="margin-bottom:50px"{{/multiple_products}}>
 {{^multiple_products}}
 <div class="cb-download-desc">
   Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
