@@ -263,12 +263,12 @@ if ($mimetype === 'application/json') {
     <div class="download-free">
       <a class="why_edition">Why Enterprise?</a>
       <div class="edition_answer" style="display:none">
-        Choose Enterprise Edition if you're working on funded project, here's why:
-        <ul>
-          <li class="bullet">Rigorously tested, production-ready release with latest bug fixes</li>
-          <li class="bullet">Free for testing and development for any number of nodes</li>
-          <li class="bullet">Free for production up to two nodes</li>
-          <li class="bullet">Annual subscription available, includes support and hot-fixes</li>
+        Choose Enterprise Edition if you're working on funded project, here's why:<br /> <br />
+        <ul class="bullet">
+          <li>Rigorously tested, production-ready release with latest bug fixes</li>
+          <li>Free for testing and development for any number of nodes</li>
+          <li>Free for production up to two nodes</li>
+          <li>Annual subscription available, includes support and hot-fixes</li>
         </ul>
         <a href="/couchbase-server/editions">Find out more</a>
       </div>
@@ -276,12 +276,12 @@ if ($mimetype === 'application/json') {
     <div class="download-free">
       <a class="why_edition">Why Community?</a>
       <div class="edition_answer" style="display:none">
-        &lt;Intro line needs to be defined&gt;:
-        <ul>
-          <li class="bullet">For enthusiasts able to resolve issues independently</li>
-          <li class="bullet">Untested binaries that do not include the latest EE bug fixes</li>
-          <li class="bullet">No constraints on using binaries on production systems</li>
-          <li class="bullet">Help available from the Couchbase user community</li>
+        &lt;Intro line needs to be defined&gt;:<br /><br />
+        <ul class="bullet">
+          <li>For enthusiasts able to resolve issues independently</li>
+          <li>Untested binaries that do not include the latest EE bug fixes</li>
+          <li>No constraints on using binaries on production systems</li>
+          <li>Help available from the Couchbase user community</li>
         </ul>
         <a href="/couchbase-server/editions">Find out more</a>
       </div>
