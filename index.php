@@ -294,7 +294,6 @@ if ($mimetype === 'application/json') {
 {{#multiple_products}}
   {{>develop}}
 {{/multiple_products}}
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
   {{#products}}
