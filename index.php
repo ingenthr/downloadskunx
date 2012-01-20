@@ -20,7 +20,7 @@ $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
   $contents = require_once INCLUDE_PATH.'contents.php';
-} else if ($_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com' || @$_GET['fromS3'] === 'true') {
+} else if ($_SERVER['SERVER_NAME'] !== 'localhost' || @$_GET['fromS3'] === 'true') {
   require_once INCLUDE_PATH.'S3.php';
   $s3 = new S3($accessKey, $secretKey);
   $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
