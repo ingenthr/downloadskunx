@@ -85,7 +85,9 @@ function collectFor($product_string, $contents) {
     } else {
       preg_match("/([A-Za-z\-]*)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?)[\.|_](.*)/",
         $filename, $matches);
-      list(, $product, , , $arch, $bits, $version, , $postfix) = $matches;
+      list(, $product, , , $arch, $bits, $version, $dev_preview, $postfix) = $matches;
+
+      $dev_preview = $dev_preview ? true : false;
 
       preg_match("/(.*)[-](enterprise|community)$/", $product, $edition_matches);
       if (count($edition_matches) > 1) {
@@ -126,7 +128,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -134,14 +136,14 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview')
           + array($type => $urls);
       }
     }
 
     $last_version = $version;
 
-    unset($version, $product, $edition, $type, $arch, $bits, $version, $postfix, $matches, $edition_matches);
+    unset($version, $product, $edition, $type, $arch, $bits, $version, $dev_preview, $postfix, $matches, $edition_matches, $dev_pre);
   }
 
   usort($output['releases'], 'cmp');
@@ -181,7 +183,31 @@ if (BY_VERSION === true) {
   $products_by_major_version[] = $current_product;
 
   $products = $products_by_major_version;
+} else {
+  $latest = null;
+  function add_latest(&$item, $key, $latest) {
+    if ($item['version'] === $latest) {
+      $item['latest'] = true;
+    }
+  }
+  foreach ($products as &$product) {
+    foreach($product['releases'] as $release) {
+      if ($release['dev_preview']) {
+        continue;
+      } else if ($latest === null) {
+        $latest = $release['version'];
+        continue;
+      } else {
+        if ($latest < $release['version']) {
+          $latest = $release['version'];
+        }
+      }
+    }
+    reset($product['releases']);
+    array_walk($product['releases'], 'add_latest', $latest);
+  }
 }
+
 $products = array('products' => $products);
 $products['multiple_products'] = (count($product_names) > 1) ? true : false;
 
@@ -210,7 +236,7 @@ if ($mimetype === 'application/json') {
   <form>
     <select>
     {{#releases}}
-      <option name="{{version}}">{{version}}</option>
+      <option value="{{version}}" {{#latest}}selected="selected"{{/latest}}>{{version}}{{#latest}} - latest{{/latest}}</option>
     {{/releases}}
     </select>
   </form>
