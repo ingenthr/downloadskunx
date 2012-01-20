@@ -260,10 +260,32 @@ if ($mimetype === 'application/json') {
       <p>
         Binaries recommended for non-commercial use</p>
     </div>
-    <!--<div class="download-free">
-      Free Download</div>
     <div class="download-free">
-      Free Download</div>-->
+      <a class="why_edition">Why Enterprise?</a>
+      <div class="edition_answer" style="display:none">
+        Choose Enterprise Edition if you're working on funded project, here's why:
+        <ul>
+          <li>Rigorously tested, production-ready release with latest bug fixes</li>
+          <li>Free for testing and development for any number of nodes</li>
+          <li>Free for production up to two nodes</li>
+          <li>Annual subscription available, includes support and hot-fixes</li>
+        </ul>
+        <a href="/couchbase-server/editions">Find out more</a>
+      </div>
+    </div>
+    <div class="download-free">
+      <a class="why_edition">Why Community?</a>
+      <div class="edition_answer" style="display:none">
+        &lt;Intro line needs to be defined&gt;:
+        <ul>
+          <li>For enthusiasts able to resolve issues independently</li>
+          <li>Untested binaries that do not include the latest EE bug fixes</li>
+          <li>No constraints on using binaries on production systems</li>
+          <li>Help available from the Couchbase user community</li>
+        </ul>
+        <a href="/couchbase-server/editions">Find out more</a>
+      </div>
+    </div>
   </div>
   {{#installers}}
     {{#deb}}<div class="cb-download-row">{{>installer}}</div>{{/deb}}
@@ -334,6 +356,15 @@ jQuery(function($) {
   $('.download-instruction').bt({
     contentSelector: "$(this).siblings('.instruction').html()",
     width: 700,
+    fill: 'white',
+    cornerRadius: 20,
+    padding: 20,
+    strokeWidth: 1,
+    trigger: ['mouseover', 'click']
+  });
+  $('.why_edition').bt({
+    contentSelector: "$(this).siblings('.edition_answer').html()",
+    width: 300,
     fill: 'white',
     cornerRadius: 20,
     padding: 20,
