@@ -455,8 +455,13 @@ EOD;
     <div class="download-col1">
       <p>
         <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
+      {{#x86.enterprise}}
       <p>
         <a href="http://packages.couchbase.com/{{x86.enterprise.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
+      {{/x86.enterprise}}
+      {{^x86.enterprise}}
+      <p>N/A</p>
+      {{/x86.enterprise}}
       <p class="notes">
         <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
     </div>
@@ -472,8 +477,13 @@ EOD;
     <div class="download-col2" data-platform="{{icon}}">
       <p>
         <a href="http://packages.couchbase.com/{{x86/64.community.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
+      {{#x86.community}}
       <p>
         <a href="http://packages.couchbase.com/{{x86.community.url}}">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
+      {{/x86.community}}
+      {{^x86.community}}
+      <p>N/A</p>
+      {{/x86.community}}
       <p class="notes">
         <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
     </div>
