@@ -303,7 +303,7 @@ if ($mimetype === 'application/json') {
     </div>
     <div class="download-col1"></div>
     <div class="download-col2">
-      <a href="{{url}}">{{filename}}</a></div>
+      <a href="http://packages.couchbase.com/{{url}}">{{filename}}</a></div>
     {{#needs_tos}}<div style="clear:both;padding:25px 0px 25px 260px;text-align:center"><strong>PLEASE NOTE:</strong> By downloading this software you are agreeing to these <a href="/agreement/free-license">terms and conditions</a>.</div>{{/needs_tos}}
   </div>
   {{/source}}
