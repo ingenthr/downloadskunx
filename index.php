@@ -312,9 +312,9 @@ if ($mimetype === 'application/json') {
 </div>
 {{/products}}
 </div>
+{{^multiple_products}}
 <p class="cb-all-downloads">
   <b><a class="first" href="/downloads-all">View all of our Downloads</a></b> &nbsp;&nbsp; <a href="/couchbase-single-server">Looking for Couchbase Single Server?</a></p>
-{{^multiple_products}}
 <div class="container-6-inner">
   <div class="grid-4 first">
     <h3 class="step-2">
