@@ -291,6 +291,7 @@ if ($mimetype === 'application/json') {
     {{#deb}}<div class="cb-download-row">{{>installer}}</div>{{/deb}}
     {{#rpm}}<div class="cb-download-row">{{>installer}}</div>{{/rpm}}
     {{#exe}}<div class="cb-download-row">{{>installer}}</div>{{/exe}}
+    {{#dmg}}<div class="cb-download-row">{{>installer}}</div>{{/dmg}}
   {{/installers}}
   {{#source}}
   <div class="cb-download-row-last">
