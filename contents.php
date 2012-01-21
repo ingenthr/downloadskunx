@@ -5908,6 +5908,34 @@ return array (
     'size' => 76,
     'hash' => 'c861ee39447158779a2379fd7586b01b',
   ),
+  'releases/1.8.2/couchbase-server-enterprise_x86_1.8.2.deb' =>
+  array (
+    'name' => 'releases/1.8.2/couchbase-server-enterprise_x86_1.8.2.deb',
+    'time' => 1325869272,
+    'size' => 69892418,
+    'hash' => 'f44d0b50ecd54340e40ea7ef3210dca5',
+  ),
+  'releases/1.8.2/couchbase-server-enterprise_x86_1.8.2.deb.md5' =>
+  array (
+    'name' => 'releases/1.8.2/couchbase-server-enterprise_x86_1.8.2.deb.md5',
+    'time' => 1325869306,
+    'size' => 89,
+    'hash' => '296ebb621eebdf9f8e17fa61b15df529',
+  ),
+  'releases/1.8.2/couchbase-server-enterprise_x86_64_1.8.2.deb' =>
+  array (
+    'name' => 'releases/1.8.2/couchbase-server-enterprise_x86_64_1.8.2.deb',
+    'time' => 1325869272,
+    'size' => 69892418,
+    'hash' => 'f44d0b50ecd54340e40ea7ef3210dca5',
+  ),
+  'releases/1.8.2/couchbase-server-enterprise_x86_64_1.8.2.deb.md5' =>
+  array (
+    'name' => 'releases/1.8.2/couchbase-server-enterprise_x86_64_1.8.2.deb.md5',
+    'time' => 1325869306,
+    'size' => 89,
+    'hash' => '296ebb621eebdf9f8e17fa61b15df529',
+  ),
   'releases/2.0.0-developer-preview-3/' =>
   array (
     'name' => 'releases/2.0.0-developer-preview-3/',
