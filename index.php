@@ -174,7 +174,7 @@ if (BY_VERSION === true) {
         $major_version = $release['major_version'];
         $current_product = array(
           'id'=> $product['id'] . '-' . str_replace('.', '-', $major_version),
-          'title'=> ($major_version == 1.7 ? 'Membase Server 1.7' : $product['title'] . ' ' . $major_version),
+          'title'=> ($product['id'] === 'couchbase-server' && $major_version == 1.7 ? 'Membase Server 1.7' : $product['title'] . ' ' . $major_version),
           'releases'=> array($release)
         );
       }
