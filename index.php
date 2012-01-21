@@ -112,6 +112,7 @@ function collectFor($product_string, $contents) {
     if ($version === null) continue;
     $major_version = substr($version, 0, strpos($version, '.', 3));
     // PHP5.3 edition: $major_version = strstr($version, '.', true);
+    $needs_tos = $major_version == 1.7;
 
     $created = date('Y-m-d', $file['time']);
 
@@ -128,7 +129,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview', 'needs_tos')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -136,14 +137,14 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview', 'needs_tos')
           + array($type => $urls);
       }
     }
 
     $last_version = $version;
 
-    unset($version, $product, $edition, $type, $arch, $bits, $version, $dev_preview, $postfix, $matches, $edition_matches, $dev_pre);
+    unset($version, $product, $edition, $type, $arch, $bits, $version, $dev_preview, $postfix, $matches, $edition_matches, $needs_tos);
   }
 
   usort($output['releases'], 'cmp');
@@ -294,13 +295,14 @@ if ($mimetype === 'application/json') {
     {{#dmg}}<div class="cb-download-row">{{>installer}}</div>{{/dmg}}
   {{/installers}}
   {{#source}}
-  <div class="cb-download-row-last">
+  <div class="cb-download-row-last"{{#needs_tos}} style="height:90px;background-position:0 0;background-color:#EEEDE8"{{/needs_tos}}>
     <div class="download-title">
       <h4>Download Sources Files:</h4>
     </div>
     <div class="download-col1"></div>
     <div class="download-col2">
       <a href="{{url}}">{{filename}}</a></div>
+    {{#needs_tos}}<div style="clear:both;padding:25px 0px 25px 260px;text-align:center"><strong>PLEASE NOTE:</strong> By downloading this software you are agreeing to these <a href="/agreement/free-license">terms and conditions</a>.</div>{{/needs_tos}}
   </div>
   {{/source}}
 </div>
