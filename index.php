@@ -357,7 +357,7 @@ jQuery(function($) {
   }).trigger('change');
   {{/products}}
 
-  $('[data-latest] .download-col2:contains("N/A")').each(function() {
+  $('[data-latest] .download-col2:first:contains("N/A")').each(function() {
     var self = $(this);
     var platform = self.attr('data-platform');
     var replacement = self.closest('.cb-download').next().find('.download-col2[data-platform='+platform+']').html();
