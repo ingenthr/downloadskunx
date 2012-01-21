@@ -5,16 +5,18 @@ $secretKey = 'REPLACE ME';
 
 define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
 
-// Swap the true/false to enable/disable by_version output:
-// for /download
-define('BY_VERSION', false);
-$product_names = array('couchbase-server');
-$develop_node_id = null;
-
-// for /downloads-all
-//define('BY_VERSION', true);
-//$product_names = array('couchbase-server', 'moxi-server');
-//$develop_node_id = null; // 1033 is the *full* Develop page...not what we want
+if (false /* show main products download page */) {
+  // Swap the true/false to enable/disable by_version output:
+  // for /download
+  define('BY_VERSION', false);
+  $product_names = array('couchbase-server');
+  $develop_node_id = null;
+} else {
+  // for /downloads-all
+  define('BY_VERSION', true);
+  $product_names = array('couchbase-server', 'moxi-server');
+  $develop_node_id = null; // 1033 is the *full* Develop page...not what we want
+}
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 
