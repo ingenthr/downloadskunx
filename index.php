@@ -302,7 +302,7 @@ if ($mimetype === 'application/json') {
     </div>
     <div class="download-col1"></div>
     <div class="download-col2">
-      <a href="http://packages.couchbase.com/{{url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - Source', '{{version}}', '{{filename}}']);">{{filename}}</a></div>
+      <a href="http://packages.couchbase.com/{{url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - {{product}} - Source', '{{version}}', '{{filename}}']);">{{filename}}</a></div>
     {{#needs_tos}}<div style="clear:both;padding:25px 0px 25px 260px;text-align:center"><strong>PLEASE NOTE:</strong> By downloading this software you are agreeing to these <a href="/agreement/free-license">terms and conditions</a>.</div>{{/needs_tos}}
   </div>
   {{/source}}
@@ -454,10 +454,10 @@ EOD;
     {{#x86/64.enterprise}}
     <div class="download-col1">
       <p>
-        <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - Enterprise', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
       {{#x86.enterprise}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86.enterprise.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - Enterprise', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86.enterprise.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
       {{/x86.enterprise}}
       {{^x86.enterprise}}
       <p>N/A</p>
@@ -476,10 +476,10 @@ EOD;
     {{#x86/64.community}}
     <div class="download-col2" data-platform="{{icon}}">
       <p>
-        <a href="http://packages.couchbase.com/{{x86/64.community.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - Community', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86/64.community.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - {{product}} - Community', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
       {{#x86.community}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86.community.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - Community', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86.community.url}}" onClick="_gaq.push(['_trackEvent', 'Downloads - {{product}} - Community', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
       {{/x86.community}}
       {{^x86.community}}
       <p>N/A</p>
