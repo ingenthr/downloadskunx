@@ -249,13 +249,13 @@ if ($mimetype === 'application/json') {
       <h2>
         Enterprise Edition</h2>
       <p>
-        Most stable binaries certified for production</p>
+        Recommended for development and production</p>
     </div>
     <div class="head-title">
       <h2>
         Community Edition</h2>
       <p>
-        Binaries recommended for non-commercial use</p>
+        Courtesy builds for enthusiasts</p>
     </div>
     <div class="download-free">
       <a class="why_edition">Why Enterprise?</a>
@@ -273,7 +273,7 @@ if ($mimetype === 'application/json') {
     <div class="download-free">
       <a class="why_edition">Why Community?</a>
       <div class="edition_answer" style="display:none">
-        &lt;Intro line needs to be defined&gt;:<br /><br />
+        Choose Community Edition if you're working non-commercial projects:<br /><br />
         <ul class="bullet">
           <li>For enthusiasts able to resolve issues independently</li>
           <li>Untested binaries that do not include the latest EE bug fixes</li>
