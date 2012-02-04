@@ -93,7 +93,7 @@ function collectFor($product_string, $contents) {
         $edition = 'community';
       }
 
-      $product = str_replace('-server', '', $product);
+      $doc_product = str_replace('-server', '', $product);
 
       if ($bits === '64') $arch .= '/64';
 
@@ -125,7 +125,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview', 'needs_tos')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -133,14 +133,14 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'dev_preview', 'needs_tos')
+        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
           + array($type => $urls);
       }
     }
 
     $last_version = $version;
 
-    unset($version, $product, $edition, $type, $arch, $bits, $version, $dev_preview, $postfix, $matches, $edition_matches, $needs_tos);
+    unset($version, $product, $doc_product, $edition, $type, $arch, $bits, $version, $dev_preview, $postfix, $matches, $edition_matches, $needs_tos);
   }
 
   usort($output['releases'], 'cmp');
@@ -458,7 +458,7 @@ EOD;
       <p>N/A</p>
       {{/x86.enterprise}}
       <p class="notes">
-        <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
+        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a></p>
     </div>
     {{/x86/64.enterprise}}
     {{^x86/64.enterprise}}
@@ -480,7 +480,7 @@ EOD;
       <p>N/A</p>
       {{/x86.community}}
       <p class="notes">
-        <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/{{product}}-server-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{product}}-manual-{{major_version}}/">Manual</a></p>
+        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a></p>
     </div>
     {{/x86/64.community}}
     {{^x86/64.community}}
