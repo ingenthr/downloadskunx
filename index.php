@@ -243,6 +243,7 @@ if ($mimetype === 'application/json') {
 </div>
 {{#releases}}
 <div class="cb-download" data-version="{{version}}"{{#latest}} data-latest="true"{{/latest}}{{#dev_preview}} data-dev-preview="true"{{/dev_preview}}>
+  {{#dev_preview}}<a name="next"></a>{{/dev_preview}}
   <div class="cb-download-head-top">
     <div class="download-title">
       <h3>
