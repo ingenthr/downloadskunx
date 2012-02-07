@@ -19,6 +19,7 @@ if (false /* show main products download page */) {
 }
 
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
+$show_next = (@$_GET['next'] === 'true' ? true : false);
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
   $contents = require_once INCLUDE_PATH.'contents.php';
@@ -205,7 +206,9 @@ if (BY_VERSION === true) {
   }
 }
 
-$products = array('products' => $products, 'staging' => ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com'));
+$products = array('products' => $products,
+                  'staging' => ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com'),
+                  'show_next' => $show_next);
 $products['multiple_products'] = (count($product_names) > 1) ? true : false;
 
 if ($mimetype === 'application/json') {
@@ -233,13 +236,13 @@ if ($mimetype === 'application/json') {
   <form>
     <select>
     {{#releases}}
-      <option value="{{version}}" {{#latest}}selected="selected"{{/latest}}>{{version}}{{#latest}} - latest{{/latest}}</option>
+      <option value="{{version}}" {{^show_next}}{{#latest}}selected="selected"{{/latest}}{{/show_next}}>{{version}}{{#latest}} - latest{{/latest}}</option>
     {{/releases}}
     </select>
   </form>
 </div>
 {{#releases}}
-<div class="cb-download" data-version="{{version}}"{{#latest}} data-latest="true"{{/latest}}>
+<div class="cb-download" data-version="{{version}}"{{#latest}} data-latest="true"{{/latest}}{{#dev_preview}} data-dev-preview="true"{{/dev_preview}}>
   <div class="cb-download-head-top">
     <div class="download-title">
       <h3>
@@ -352,12 +355,18 @@ jQuery(function($) {
   }).trigger('change');
   {{/products}}
 
+  {{#show_next}}
+  $('[data-dev-preview]:first').each(function() {
+  });
+  {{/show_next}}
+  {{^show_next}}
   $('[data-latest] .download-col2:first:contains("N/A")').each(function() {
     var self = $(this);
     var platform = self.attr('data-platform');
     var replacement = self.closest('.cb-download').next().find('.download-col2[data-platform='+platform+']').html();
     self.html(replacement);
   });
+  {{/show_next}}
 
   $('.download-instruction').bt({
     contentSelector: "$(this).siblings('.instruction').html()",
