@@ -3,7 +3,8 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
-define('INCLUDE_PATH', ($_SERVER['SERVER_NAME'] === 'localhost') ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
+define('IS_LOCAL', $_SERVER['SERVER_NAME'] === 'localhost');
+define('INCLUDE_PATH', IS_LOCAL ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
 
 if (false /* show main products download page */) {
   // Swap the true/false to enable/disable by_version output:
@@ -21,9 +22,9 @@ if (false /* show main products download page */) {
 $mimetype = (@$_GET['type'] === 'json' ? 'application/json' : 'text/html');
 $show_next = (@$_GET['next'] === 'true' ? true : false);
 
-if ($_SERVER['SERVER_NAME'] === 'localhost' && @$_GET['fromS3'] !== 'true') {
+if (IS_LOCAL && @$_GET['fromS3'] !== 'true') {
   $contents = require_once INCLUDE_PATH.'contents.php';
-} else if ($_SERVER['SERVER_NAME'] !== 'localhost' || @$_GET['fromS3'] === 'true') {
+} else if (!IS_LOCAL || @$_GET['fromS3'] === 'true') {
   require_once INCLUDE_PATH.'S3.php';
   $s3 = new S3($accessKey, $secretKey);
   $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
@@ -211,7 +212,7 @@ if (BY_VERSION === true) {
 }
 
 $products = array('products' => $products,
-                  'staging' => ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com'),
+                  'staging' => (IS_LOCAL || $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com'),
                   'show_next' => $show_next);
 $products['multiple_products'] = (count($product_names) > 1) ? true : false;
 
@@ -505,7 +506,7 @@ EOD;
     {{/x86/64.community}}
 EOD;
 
-  if ($products['multiple_products'] && $_SERVER['SERVER_NAME'] !== 'localhost'
+  if ($products['multiple_products'] && !IS_LOCAL
       && $develop_node_id !== null) {
     $node = node_load($develop_node_id);
     $develop = node_view($node);
@@ -514,7 +515,7 @@ EOD;
     $develop = '';
   }
   $partials = compact('installer', 'develop');
-  if ($_SERVER['SERVER_NAME'] === 'localhost') {
+  if (IS_LOCAL) {
     $partials += array('header' => file_get_contents('header.html'),
                       'footer' => file_get_contents('footer.html'));
   }
