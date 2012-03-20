@@ -5950,6 +5950,13 @@ return array (
     'size' => 94972028,
     'hash' => 'a05aee46af1f765d205d0ca50246b363-2',
   ),
+  'releases/2.0.0-developer-preview-3/couchbase-server-community_x86_2.0.0-dev-preview-3.deb.blacklist' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-3/couchbase-server-community_x86_2.0.0-dev-preview-3.deb.blacklist',
+    'time' => 1327016368,
+    'size' => 94972028,
+    'hash' => 'a05aee46af1f765d205d0ca50246b363-2',
+  ),
   'releases/2.0.0-developer-preview-3/couchbase-server-community_x86_2.0.0-dev-preview-3.deb.md5' =>
   array (
     'name' => 'releases/2.0.0-developer-preview-3/couchbase-server-community_x86_2.0.0-dev-preview-3.deb.md5',

@@ -59,6 +59,7 @@ function collectFor($product_string, $contents) {
     else if (!is_numeric($version[0])) continue;
     else if ($filename === 'index.html') continue;
     else if (substr($filename, -3, 3) === 'md5'
+      || substr($filename, -9, 9) === 'blacklist'
       || substr($filename, -3, 3) === 'xml'
       || substr($filename, -3, 3) === 'txt'
       || substr($filename, 0, 10) === 'northscale'
@@ -68,6 +69,9 @@ function collectFor($product_string, $contents) {
             && substr($filename, 0, strlen('membase-server')) !== 'membase-server') continue;
     else if ($product_string !== 'couchbase-server'
             && substr($filename, 0, strlen($product_string)) !== $product_string) continue;
+
+    // Check if this download is blacklisted. If it is, skip it.
+    if (array_key_exists($url . '.blacklist', $contents)) continue;
 
     if (count($output['releases']) > 0) {
       $last_entry =& $output['releases'][count($output['releases'])-1];
