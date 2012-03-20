@@ -62,6 +62,7 @@ function collectFor($product_string, $contents) {
     else if ($filename === 'index.html') continue;
     else if (substr($filename, -3, 3) === 'md5'
       || substr($filename, -9, 9) === 'blacklist'
+      || substr($filename, -7, 7) === 'staging'
       || substr($filename, -3, 3) === 'xml'
       || substr($filename, -3, 3) === 'txt'
       || substr($filename, 0, 10) === 'northscale'
@@ -74,6 +75,7 @@ function collectFor($product_string, $contents) {
 
     // Check if this download is blacklisted. If it is, skip it.
     if (array_key_exists($url . '.blacklist', $contents)) continue;
+    if (!IS_LOCAL && !IS_STAGING && array_key_exists($url . '.staging', $contents)) continue;
 
     if (count($output['releases']) > 0) {
       $last_entry =& $output['releases'][count($output['releases'])-1];
