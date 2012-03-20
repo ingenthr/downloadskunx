@@ -3,6 +3,7 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
+define('IS_STAGING', $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com');
 define('IS_LOCAL', $_SERVER['SERVER_NAME'] === 'localhost');
 define('INCLUDE_PATH', IS_LOCAL ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
 
@@ -212,7 +213,7 @@ if (BY_VERSION === true) {
 }
 
 $products = array('products' => $products,
-                  'staging' => (IS_LOCAL || $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com'),
+                  'staging' => (IS_LOCAL || IS_STAGING),
                   'show_next' => $show_next);
 $products['multiple_products'] = (count($product_names) > 1) ? true : false;
 
