@@ -89,7 +89,7 @@ function collectFor($product_string, $contents) {
       $version = $version === "" ? $alt_version : $version;
       $type = 'source';
     } else {
-      preg_match("/([A-Za-z\-]*)([_]?(win2008)?_(x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?)[\.|_](.*)/",
+      preg_match("/([A-Za-z\-]*)([_]?(win2008)?[_\-](x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?)[\.|_](.*)/",
         $filename, $matches);
       list(, $product, , , $arch, $bits, $version, $dev_preview, $postfix) = $matches;
 
