@@ -110,6 +110,7 @@ function collectFor($product_string, $contents) {
       else if (substr($postfix, 0, 3) === 'rpm')  $type = 'rpm';
       else if (substr($postfix, 0, 3) === 'deb')  $type = 'deb';
       else if (substr($postfix, 0, 3) === 'zip')  $type = 'dmg'; // we used to dmg's...
+      else if (substr($postfix, 0, 3) === 'dmg')  $type = 'dmg';
     }
 
     // if the version string isn't found in the filename, than it's not one of
