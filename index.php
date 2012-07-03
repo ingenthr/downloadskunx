@@ -369,14 +369,6 @@ jQuery(function($) {
   $('[data-dev-preview]:first').each(function() {
   });
   {{/show_next}}
-  {{^show_next}}
-  $('[data-latest] .download-col2:first:contains("N/A")').each(function() {
-    var self = $(this);
-    var platform = self.attr('data-platform');
-    var replacement = self.closest('.cb-download').next().find('.download-col2[data-platform='+platform+']').html();
-    self.html(replacement);
-  });
-  {{/show_next}}
 
   $('.download-instruction').bt({
     contentSelector: "$(this).siblings('.instruction').html()",
