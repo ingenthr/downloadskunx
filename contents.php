@@ -6055,6 +6055,174 @@ return array (
     'size' => 105,
     'hash' => '167753aa2526773b3021c312eb00bc80',
   ),
+  'releases/2.0.0-developer-preview-4/' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/',
+    'time' => 1332282852,
+    'size' => 0,
+    'hash' => 'd41d8cd98f00b204e9800998ecf8427e',
+  ),
+  'releases/2.0.0-developer-preview-4/CHANGES_couchbase-server-2.0.0-dev-preview-4.txt' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/CHANGES_couchbase-server-2.0.0-dev-preview-4.txt',
+    'time' => 1332295102,
+    'size' => 2320,
+    'hash' => '334c1e3f399a8b2b874be8ba95e26e26',
+  ),
+  'releases/2.0.0-developer-preview-4/CHANGES_couchbase-server-2.0.0-dev-preview-4.txt.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/CHANGES_couchbase-server-2.0.0-dev-preview-4.txt.md5',
+    'time' => 1332295102,
+    'size' => 81,
+    'hash' => 'b761177bb6d9b6d298b487f228b7161b',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-2.0.0-dev-preview-4-manifest.xml' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-2.0.0-dev-preview-4-manifest.xml',
+    'time' => 1332295102,
+    'size' => 3149,
+    'hash' => '92ee916c2fcdac706fd4cdbfc095504b',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip',
+    'time' => 1332295102,
+    'size' => 63427695,
+    'hash' => '0d624041852b368c12e755456526ed90',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.md5',
+    'time' => 1332295102,
+    'size' => 113,
+    'hash' => '467248ee377ac97c0922f225dd902f31',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.md5.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.md5.staging',
+    'time' => 1332295529,
+    'size' => 113,
+    'hash' => '467248ee377ac97c0922f225dd902f31',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community-x86_64_2.0.0-dev-preview-4.zip.staging',
+    'time' => 1332295530,
+    'size' => 63427695,
+    'hash' => '0d624041852b368c12e755456526ed90',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb',
+    'time' => 1332295102,
+    'size' => 79788090,
+    'hash' => '868b96ee63c61489b7e29c4b63dea6e0',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.md5',
+    'time' => 1332295102,
+    'size' => 87,
+    'hash' => '4351024997d18a0f2c7d2bf047938412',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.md5.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.md5.staging',
+    'time' => 1332295326,
+    'size' => 87,
+    'hash' => '4351024997d18a0f2c7d2bf047938412',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.deb.staging',
+    'time' => 1332295327,
+    'size' => 79788090,
+    'hash' => '31864db9c41b5f14d97abdcd6a07b3e0-2',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm',
+    'time' => 1332295102,
+    'size' => 80370422,
+    'hash' => '298828163b7b742a6aad8528777424d8',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.md5',
+    'time' => 1332295103,
+    'size' => 87,
+    'hash' => '8d7ed8bcd48cae91f697f465ddec758b',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.md5.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.md5.staging',
+    'time' => 1332295377,
+    'size' => 87,
+    'hash' => '8d7ed8bcd48cae91f697f465ddec758b',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_2.0.0-dev-preview-4.rpm.staging',
+    'time' => 1332295378,
+    'size' => 80370422,
+    'hash' => 'c28622bc40851c2f1dba99b1a58f2163-2',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb',
+    'time' => 1332295103,
+    'size' => 75827192,
+    'hash' => '7483a5904d777fb84b79ee8b92c045c7',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.md5',
+    'time' => 1332295104,
+    'size' => 90,
+    'hash' => '94d22ce3caed5e2a7e92591815b17b4a',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.md5.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.md5.staging',
+    'time' => 1332295429,
+    'size' => 90,
+    'hash' => '94d22ce3caed5e2a7e92591815b17b4a',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb.staging',
+    'time' => 1332295429,
+    'size' => 75827192,
+    'hash' => '3bcb92124d326f044604f4fddfc07e85-2',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm',
+    'time' => 1332295104,
+    'size' => 78532680,
+    'hash' => 'fc31576355396a508a9c9ed073e0c667',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.md5',
+    'time' => 1332295105,
+    'size' => 90,
+    'hash' => '2dbf6048bd8056c1e7fcc0a8b0716e89',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.md5.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.md5.staging',
+    'time' => 1332295477,
+    'size' => 90,
+    'hash' => '2dbf6048bd8056c1e7fcc0a8b0716e89',
+  ),
+  'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.rpm.staging',
+    'time' => 1332295478,
+    'size' => 78532680,
+    'hash' => 'f8ee770a8a12837bee1cbe483789e1e3-2',
+  ),
   'releases/basestar-a1/README.txt' =>
   array (
     'name' => 'releases/basestar-a1/README.txt',
