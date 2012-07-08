@@ -7,15 +7,19 @@ define('IS_STAGING', $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com');
 define('IS_LOCAL', $_SERVER['SERVER_NAME'] === 'localhost');
 define('INCLUDE_PATH', IS_LOCAL ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
 
-if (false /* show main products download page */) {
+// true === /downloads-all; false === /downloads
+define('BY_VERSION', false);
+
+// show (or hide) recent builds table. Only works with BY_VERSION === true
+define('SHOW_BUILDS', true);
+
+if (!BY_VERSION /* show main products download page */) {
   // Swap the true/false to enable/disable by_version output:
   // for /download
-  define('BY_VERSION', false);
   $product_names = array('couchbase-server');
   $develop_node_id = null;
 } else {
   // for /downloads-all
-  define('BY_VERSION', true);
   $product_names = array('couchbase-server', 'moxi-server');
   $develop_node_id = null; // 1033 is the *full* Develop page...not what we want
 }
@@ -25,10 +29,16 @@ $show_next = (@$_GET['next'] === 'true' ? true : false);
 
 if (IS_LOCAL && @$_GET['fromS3'] !== 'true') {
   $contents = require_once INCLUDE_PATH.'contents.php';
+  $builds = (SHOW_BUILDS && BY_VERSION)
+            ? require_once INCLUDE_PATH.'builds.php'
+            : array();
 } else if (!IS_LOCAL || @$_GET['fromS3'] === 'true') {
   require_once INCLUDE_PATH.'S3.php';
   $s3 = new S3($accessKey, $secretKey);
   $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
+  $builds = (SHOW_BUILDS && BY_VERSION)
+            ? $s3->getBucket('packages.couchbase.com', 'builds', null, null, '|')
+            : array();
 }
 
 // cmp is a comparitor function used in collectFor.
@@ -82,16 +92,15 @@ function collectFor($product_string, $contents) {
     }
 
     $md5 = (array_key_exists($url . '.md5', $contents) ? $url . '.md5' : null);
-
     // source only package...no edition
     if (preg_match("/([A-Za-z\-]*)([-](enterprise|community)[_])?(_src-([0-9\.]*)|([0-9\.\-a-z]*)_src)[\.|_](.*)/", $filename, $matches) > 0) {
       list(, $product, , $edition, , $version, $alt_version, $postfix) = $matches;
       $version = $version === "" ? $alt_version : $version;
       $type = 'source';
     } else {
-      preg_match("/([A-Za-z\-]*)([_]?(win2008)?[_\-](x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?)[\.|_](.*)/",
+      preg_match("/([A-Za-z\-]*)([_]?(win2008)?[_\-](x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9])?(-([0-9]{4,5})-rel)?)[\.|_](.*)/",
         $filename, $matches);
-      list(, $product, , , $arch, $bits, $version, $dev_preview, $postfix) = $matches;
+      list(, $product, , , $arch, $bits, $version, $dev_preview, , $build, $postfix) = $matches;
 
       $dev_preview = $dev_preview ? true : false;
 
@@ -135,7 +144,7 @@ function collectFor($product_string, $contents) {
     } else {
       // create a new entry
       if ($type !== 'source') {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
+        $output['releases'][] = compact('major_version', 'version', 'build', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
           + array('installers'=>
               array($type =>
                 array_merge($platform_names[$type], array($arch => array($edition => $urls))
@@ -143,7 +152,7 @@ function collectFor($product_string, $contents) {
               )
             );
       } else {
-        $output['releases'][] = compact('major_version', 'version', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
+        $output['releases'][] = compact('major_version', 'version', 'build', 'created', 'product', 'doc_product', 'dev_preview', 'needs_tos')
           + array($type => $urls);
       }
     }
@@ -163,23 +172,26 @@ header('Content-Type: ' . $mimetype);
 $products = array();
 
 foreach ($product_names as $product_name) {
-  $products[] = collectFor($product_name, $contents);
+  $products[] = collectFor($product_name, $contents + $builds);
 }
 
 if (BY_VERSION === true) {
   $products_by_major_version = array();
   foreach ($products as $product) {
     foreach ($product['releases'] as $release) {
-      if (isset($major_version) && $major_version === $release['major_version']) {
+      if (isset($major_version) && $major_version === $release['major_version']
+          && isset($has_build) && $has_build == !empty($release['build'])) {
         $current_product['releases'][] = $release;
       } else {
         if (isset($current_product)) {
           $products_by_major_version[] = $current_product;
         }
         $major_version = $release['major_version'];
+        $has_build = !empty($release['build']);
         $current_product = array(
-          'id'=> $product['id'] . '-' . str_replace('.', '-', $major_version),
+          'id'=> $product['id'] . '-' . str_replace('.', '-', $major_version) . ($has_build ? '-builds' : ''),
           'title'=> ($product['id'] === 'couchbase-server' && $major_version == 1.7 ? 'Membase Server 1.7' : $product['title'] . ' ' . $major_version),
+          'has_build'=> $has_build,
           'releases'=> array($release)
         );
       }
@@ -240,7 +252,7 @@ if ($mimetype === 'application/json') {
   Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
 {{/multiple_products}}
 <h3{{^multiple_products}} class="step-1"{{/multiple_products}}>
-  {{title}} Downloads</h3>
+  {{title}} {{#has_build}}Recent Build{{/has_build}} Downloads</h3>
 <div class="cb-download-form">
   <form>
     <select>
@@ -469,7 +481,9 @@ EOD;
       <p>N/A</p>
       {{/x86.enterprise}}
       <p class="notes">
-        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a></p>
+        {{^has_build}}<a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; {{/has_build}}
+        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a>
+      </p>
     </div>
     {{/x86/64.enterprise}}
     {{^x86/64.enterprise}}
@@ -491,7 +505,9 @@ EOD;
       <p>N/A</p>
       {{/x86.community}}
       <p class="notes">
-        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a></p>
+        {{^has_build}}<a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/{{product}}-rn.html">Release Notes</a> &nbsp;&nbsp; {{/has_build}}
+        <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a>
+      </p>
     </div>
     {{/x86/64.community}}
     {{^x86/64.community}}
