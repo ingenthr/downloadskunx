@@ -489,10 +489,15 @@ EOD;
       </div>
     </div>
     {{^has_build}}
-    {{#x86/64.enterprise}}
     <div class="download-col1">
+      {{#x86/64.enterprise}}
       <p>
         <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
+      {{/x86/64.enterprise}}
+      {{^x86/64.enterprise}}
+      <p>N/A</p>
+      {{/x86/64.enterprise}}
+
       {{#x86.enterprise}}
       <p>
         <a href="http://packages.couchbase.com/{{x86.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
@@ -505,23 +510,21 @@ EOD;
         <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a>
       </p>
     </div>
-    {{/x86/64.enterprise}}
-    {{^x86/64.enterprise}}
-    <div class="download-col1">
-      <p>N/A</p>
-      <p>N/A</p>
-    </div>
-    {{/x86/64.enterprise}}
     {{/has_build}}
 
     {{#has_build}}
     <div class="download-col1"></div>
     {{/has_build}}
 
-    {{#x86/64.community}}
     <div class="download-col2" data-platform="{{icon}}">
+      {{#x86/64.community}}
       <p>
         <a href="http://packages.couchbase.com/{{x86/64.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
+      {{/x86/64.community}}
+      {{^x86/64.community}}
+      <p>N/A</p>
+      {{/x86/64.community}}
+
       {{#x86.community}}
       <p>
         <a href="http://packages.couchbase.com/{{x86.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
@@ -534,13 +537,6 @@ EOD;
         <a href="http://www.couchbase.com/docs/{{doc_product}}-manual-{{major_version}}/">Manual</a>
       </p>
     </div>
-    {{/x86/64.community}}
-    {{^x86/64.community}}
-    <div class="download-col2" data-platform="{{icon}}">
-      <p>N/A</p>
-      <p>N/A</p>
-    </div>
-    {{/x86/64.community}}
 EOD;
 
   if ($products['multiple_products'] && !IS_LOCAL
