@@ -270,18 +270,27 @@ if ($mimetype === 'application/json') {
       <h3>
         Operating System</h3>
     </div>
+    {{^has_build}}
     <div class="head-title">
       <h2>
         Enterprise Edition</h2>
       <p>
         Recommended for development and production</p>
     </div>
+    {{/has_build}}
+    {{#has_build}}
+    <div class="head-title">
+      <h2>
+        What are Recent Builds?</h2>
+    </div>
+    {{/has_build}}
     <div class="head-title">
       <h2>
         Community Edition</h2>
       <p>
         Courtesy builds for enthusiasts</p>
     </div>
+    {{^has_build}}
     <div class="download-free">
       <a class="why_edition">Why Enterprise?</a>
       <div class="edition_answer" style="display:none">
@@ -295,6 +304,10 @@ if ($mimetype === 'application/json') {
         <a href="/couchbase-server/editions">Learn More</a>
       </div>
     </div>
+    {{/has_build}}
+    {{#has_build}}
+    <div class="download-free"></div>
+    {{/has_build}}
     <div class="download-free">
       <a class="why_edition">Why Community?</a>
       <div class="edition_answer" style="display:none">
@@ -469,6 +482,7 @@ EOD;
         </div>
       </div>
     </div>
+    {{^has_build}}
     {{#x86/64.enterprise}}
     <div class="download-col1">
       <p>
@@ -492,6 +506,18 @@ EOD;
       <p>N/A</p>
     </div>
     {{/x86/64.enterprise}}
+    {{/has_build}}
+
+    {{#has_build}}
+    {{#is_deb}}
+    <div class="download-col1">
+      <p>Recent builds are reasonably stable development builds from our build system meant for testing purposes. These builds not suitable for production use.</p>
+    </div>
+    {{/is_deb}}
+    {{^is_deb}}
+    <div class="download-col1"></div>
+    {{/is_deb}}
+    {{/has_build}}
 
     {{#x86/64.community}}
     <div class="download-col2" data-platform="{{icon}}">
