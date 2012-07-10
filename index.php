@@ -316,7 +316,7 @@ if ($mimetype === 'application/json') {
 <div class="cb-download-desc">
   Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
 {{/multiple_products}}
-<h3{{^multiple_products}} class="step-1"{{/multiple_products}}>
+<h3{{^multiple_products}} class="step-1"{{/multiple_products}}{{#has_build}} id="recent-builds"{{/has_build}}>
   {{title}} {{#has_build}}Recent Build{{/has_build}} Downloads</h3>
 <div class="cb-download-form">
   <form>
