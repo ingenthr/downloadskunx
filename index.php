@@ -29,14 +29,14 @@ $show_next = (@$_GET['next'] === 'true' ? true : false);
 
 if (IS_LOCAL && @$_GET['fromS3'] !== 'true') {
   $contents = require_once INCLUDE_PATH.'contents.php';
-  $builds = (SHOW_BUILDS && BY_VERSION)
+  $builds = (SHOW_BUILDS)
             ? require_once INCLUDE_PATH.'builds.php'
             : array();
 } else if (!IS_LOCAL || @$_GET['fromS3'] === 'true') {
   require_once INCLUDE_PATH.'S3.php';
   $s3 = new S3($accessKey, $secretKey);
   $contents = $s3->getBucket('packages.couchbase.com', 'releases', null, null, '|');
-  $builds = (SHOW_BUILDS && BY_VERSION)
+  $builds = (SHOW_BUILDS)
             ? $s3->getBucket('packages.couchbase.com', 'builds', null, null, '|')
             : array();
 }
@@ -220,7 +220,18 @@ foreach ($product_names as $product_name) {
   $products[] = collectFor($product_name, $contents + $builds);
 }
 
+function just_the_latest($latest_builds) {
+  function cmpBuildNumber($a, $b) {
+    return $a['build'] > $b['build'];
+  }
+  usort($latest_builds, 'cmpBuildNumber');
+  $latest_builds = call_user_func_array('array_replace_recursive', $latest_builds);
+
+  return $latest_builds;
+}
+
 if (BY_VERSION === true) {
+  // /downloads-all
   $latest_builds = array();
   $products_by_major_version = array();
   foreach ($products as $product) {
@@ -252,11 +263,7 @@ if (BY_VERSION === true) {
   // Throw the final current_product into the stack.
   $products_by_major_version[] = $current_product;
 
-  function cmpBuildNumber($a, $b) {
-    return $a['build'] > $b['build'];
-  }
-  usort($latest_builds, 'cmpBuildNumber');
-  $latest_builds = call_user_func_array('array_replace_recursive', $latest_builds);
+  $latest_builds = just_the_latest($latest_builds);
   $latest_builds['version'] = 'latest';
   unset($latest_builds['build']);
 
@@ -268,14 +275,20 @@ if (BY_VERSION === true) {
 
   $products = $products_by_major_version;
 } else {
+  // /downloads
   $latest = null;
+  $latest_builds = array();
   function add_latest(&$item, $key, $latest) {
     if ($item['version'] === $latest) {
       $item['latest'] = true;
     }
   }
-  foreach ($products as &$product) {
-    foreach($product['releases'] as $release) {
+
+  foreach($products[0]['releases'] as $k => $release) {
+    if (!empty($release['build'])) {
+      array_push($latest_builds, $release);
+      unset($products[0]['releases'][$k]);
+    } else {
       if ($release['dev_preview']) {
         continue;
       } else if ($latest === null) {
@@ -287,9 +300,11 @@ if (BY_VERSION === true) {
         }
       }
     }
-    reset($product['releases']);
-    array_walk($product['releases'], 'add_latest', $latest);
   }
+  reset($products[0]['releases']);
+  array_walk($products[0]['releases'], 'add_latest', $latest);
+  array_unshift($products[0]['releases'], just_the_latest($latest_builds));
+  $products[0]['releases'][0]['version'] = 'latest recent builds';
 }
 
 $products = array('products' => $products,
@@ -562,7 +577,7 @@ EOD;
     <div class="download-col1">
       {{#x86/64.enterprise}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86/64 Installer']);">{{#has_build}}{{build}} Build{{/has_build}}{{^has_build}}{{version}} Release{{/has_build}}</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86/64.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86/64 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86/64.enterprise.md5}}">[md5]</a></p>
       {{/x86/64.enterprise}}
       {{^x86/64.enterprise}}
       <p>N/A</p>
@@ -570,7 +585,7 @@ EOD;
 
       {{#x86.enterprise}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86 Installer']);">{{#has_build}}{{build}} Build{{/has_build}}{{^has_build}}{{version}} Release{{/has_build}}</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86.enterprise.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Enterprise', '{{version}}', '{{title}} x86 Installer']);">{{version}} Release</a> | <a href="http://packages.couchbase.com/{{x86.enterprise.md5}}">[md5]</a></p>
       {{/x86.enterprise}}
       {{^x86.enterprise}}
       <p>N/A</p>
@@ -589,7 +604,7 @@ EOD;
     <div class="download-col2" data-platform="{{icon}}">
       {{#x86/64.community}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86/64.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86/64 Installer']);">{{#has_build}}{{build}} Build{{/has_build}}{{^has_build}}{{version}} Release{{/has_build}}</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86/64.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86/64 Installer']);">{{#build}}{{build}} Build{{/build}}{{^build}}{{version}} Release{{/build}}</a> | <a href="http://packages.couchbase.com/{{x86/64.community.md5}}">[md5]</a></p>
       {{/x86/64.community}}
       {{^x86/64.community}}
       <p>N/A</p>
@@ -597,7 +612,7 @@ EOD;
 
       {{#x86.community}}
       <p>
-        <a href="http://packages.couchbase.com/{{x86.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86 Installer']);">{{#has_build}}{{build}} Build{{/has_build}}{{^has_build}}{{version}} Release{{/has_build}}</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
+        <a href="http://packages.couchbase.com/{{x86.community.url}}" onClick="_gaq.push(['_trackEvent', '{{#staging}}[staging] {{/staging}}Downloads - {{product}} - Community', '{{version}}', '{{title}} x86 Installer']);">{{#build}}{{build}} Build{{/build}}{{^build}}{{version}} Release{{/build}}</a> | <a href="http://packages.couchbase.com/{{x86.community.md5}}">[md5]</a></p>
       {{/x86.community}}
       {{^x86.community}}
       <p>N/A</p>
