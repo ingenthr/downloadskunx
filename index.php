@@ -417,7 +417,12 @@ if ($mimetype === 'application/json') {
 </div>
 {{^multiple_products}}
 <p class="cb-all-downloads">
-  <b><a class="first" href="/downloads-all">View all of our Downloads</a></b> &nbsp;&nbsp; <a href="/couchbase-single-server">Looking for Couchbase Single Server?</a></p>
+  Looking for <a href="/downloads-all#couchbase-server-2-0">2.0 Dev Preview</a>,
+  <a href="/downloads-all#moxi-server-1-8">Moxi Server</a>,
+  <a href="/downloads-all#couchbase-server-1-7">Membase</a>, or
+  <a href="/couchdb">CouchDB</a>?
+  <b><a href="/downloads-all" style="border-left:1px solid #EDEDE5;padding-left:20px;margin-left:20px">View all of our Downloads</a></b>
+</p>
 <div class="container-6-inner">
   <div class="grid-4 first">
     <h3 class="step-2">
