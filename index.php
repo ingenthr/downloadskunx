@@ -272,6 +272,7 @@ if (BY_VERSION === true) {
     if ($p['has_build']) {
       $recent_builds_data = $products_by_major_version[$k];
       unset($products_by_major_version[$k]);
+      $recent_builds_data['title'] = 'Recent Builds';
       array_unshift($recent_builds_data['releases'], $latest_builds);
     }
   }
@@ -327,7 +328,18 @@ if ($mimetype === 'application/json') {
 <style type="text/css">
 .cb-download-form{top:44px;z-index:1}
 .cb-download{display:none}
+.inline-menu{list-style:none;margin:0;padding:0;clear:both;display:block;overflow:hidden;margin:15px 0}
+.inline-menu li{display:inline}
+.inline-menu li a{float:left;display:block;border-right:1px solid #EDEDE5;padding:0 5px;margin-left:5px}
+.inline-menu li:last-child a{border-right:none}
 </style>
+{{#multiple_products}}
+<ul class="inline-menu">
+  {{#products}}
+  <li><a href="#{{id}}">{{title}}</a></li>
+  {{/products}}
+</ul>
+{{/multiple_products}}
 <div>
 {{#products}}
 <div id="{{id}}" style="position:relative;{{#multiple_products}}margin-bottom:50px{{/multiple_products}}">
