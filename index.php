@@ -309,7 +309,7 @@ if (BY_VERSION === true) {
   reset($products[0]['releases']);
   array_walk($products[0]['releases'], 'add_latest', $latest);
   array_unshift($products[0]['releases'], just_the_latest($latest_builds));
-  $products[0]['releases'][0]['version'] = 'latest recent builds';
+  $products[0]['releases'][0]['version'] = '2.0.0 recent builds';
 }
 
 $products = array('products' => $products,
@@ -449,7 +449,7 @@ if ($mimetype === 'application/json') {
 {{^multiple_products}}
 <p class="cb-all-downloads">
   Looking for <a href="/downloads-all#couchbase-server-2-0">Couchbase Server 2.0 recent builds</a>,
-  <a href="/downloads-all#couchbase-server-1-7">legacy Membase</a> or other products?
+  legacy <a href="/downloads-all#couchbase-server-1-7">Membase</a> or other products?
   <b><a href="/downloads-all"
     style="border-left:2px solid #EDEDE5;padding-left:20px;margin-left:20px">View all of our downloads</a></b>.
 </p>
