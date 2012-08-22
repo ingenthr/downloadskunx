@@ -272,7 +272,7 @@ if (BY_VERSION === true) {
     if ($p['has_build']) {
       $recent_builds_data = $products_by_major_version[$k];
       unset($products_by_major_version[$k]);
-      $recent_builds_data['title'] = 'Recent Builds';
+      $recent_builds_data['title'] = '2.0 Recent Builds';
       array_unshift($recent_builds_data['releases'], $latest_builds);
     }
   }
@@ -383,7 +383,7 @@ if ($mimetype === 'application/json') {
       {{/has_build}}
       {{#has_build}}
       <h2>
-        Recent Builds</h2>
+        2.0 Recent Builds</h2>
         <p>&nbsp;</p>
       {{/has_build}}
     </div>
