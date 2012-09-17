@@ -267,16 +267,13 @@ if (BY_VERSION === true) {
   $latest_builds['version'] = 'latest';
   unset($latest_builds['build']);
 
-  $recent_builds_data = array();
-  foreach ($products_by_major_version as $k => &$p) {
+  foreach ($products_by_major_version as &$p) {
     if ($p['has_build']) {
-      $recent_builds_data = $products_by_major_version[$k];
-      unset($products_by_major_version[$k]);
       $recent_builds_data['title'] = '2.0 Recent Builds';
-      array_unshift($recent_builds_data['releases'], $latest_builds);
+      array_unshift($p['releases'], $latest_builds);
+      $recent_builds_data = $products_by_major_version[$k];
     }
   }
-  array_unshift($products_by_major_version, $recent_builds_data);
 
   $products = $products_by_major_version;
 } else {
