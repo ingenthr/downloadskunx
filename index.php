@@ -109,6 +109,13 @@ function collectFor($product_string, $contents) {
   $last_version = 0;
   foreach ($contents as $file) {
     $url = $file['name'];
+
+    // Don't allow funny filenames like releases/clients_$folder$
+    // @daschl, 2012-09-17
+    if(count(explode('/', $file['name'])) < 3) {
+      continue;
+    }
+
     list(, $version, $filename) = explode('/', $file['name']);
 
     if ($filename === "") continue;
@@ -145,6 +152,13 @@ function collectFor($product_string, $contents) {
     } else {
       preg_match("/([A-Za-z\-]*)([_]?(win2008)?[_\-](x86)[_]?(64)?)?[_]([0-9\.]*(-dev-preview-[0-9]|-beta)?(-([0-9]{4,5})-rel)?)[\.|_](.*)/",
         $filename, $matches);
+      
+      // If this regex didn't match too, skip the entry so that it doesn't produce warnings.
+      // @daschl, 2012-09-17
+      if(empty($matches)) {
+        continue;
+      }
+
       list(, $product, , , $arch, $bits, $version, $dev_preview, , $build, $postfix) = $matches;
 
       $dev_preview = $dev_preview ? true : false;
@@ -173,6 +187,12 @@ function collectFor($product_string, $contents) {
     $major_version = substr($version, 0, strpos($version, '.', 3));
     // PHP5.3 edition: $major_version = strstr($version, '.', true);
     $needs_tos = $major_version == 1.7;
+
+    // Initialize with a default date (kinda broken)
+    // @daschl, 2012-09-17
+    if(!isset($file['time'])) {
+      $file['time'] = time();
+    }
 
     $created = date('Y-m-d', $file['time']);
 
