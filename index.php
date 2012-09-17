@@ -287,7 +287,7 @@ if (BY_VERSION === true) {
   $latest_builds['version'] = 'latest';
   unset($latest_builds['build']);
 
-  foreach ($products_by_major_version as &$p) {
+  foreach ($products_by_major_version as $k => &$p) {
     if ($p['has_build']) {
       $recent_builds_data['title'] = '2.0 Recent Builds';
       array_unshift($p['releases'], $latest_builds);
