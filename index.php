@@ -329,6 +329,16 @@ if (BY_VERSION === true) {
   $products[0]['releases'][0]['version'] = '2.0.0 recent builds';
 }
 
+// Quick hack to populate the beta releases to the top
+// This can be modified to push the final releases afterwards
+// @daschl, 2012-09-17
+foreach($products[0]['releases'] as $key => $release) {
+  if(preg_match('/beta/', $release['version'])) {
+    $beta = array_splice($products[0]['releases'], $key, 1, null);
+    array_unshift($products[0]['releases'], $beta[0]);
+  } 
+}
+
 $products = array('products' => $products,
                   'staging' => (IS_LOCAL || IS_STAGING),
                   'show_next' => $show_next);
