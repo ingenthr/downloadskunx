@@ -339,6 +339,13 @@ foreach($products[0]['releases'] as $key => $release) {
   } 
 }
 
+foreach($products as $key => $product) {
+  if(preg_match('/couchbase-server-2-0-builds/', $product['id'])) {
+    $products[$key]['title'] = 'Couchbase Server 2.0 Recent Builds';
+  }
+}
+
+
 $products = array('products' => $products,
                   'staging' => (IS_LOCAL || IS_STAGING),
                   'show_next' => $show_next);
@@ -375,7 +382,7 @@ if ($mimetype === 'application/json') {
   Enterprise or Community. <a href="/couchbase-server/editions">Which one is right for me?</a></div>
 {{/multiple_products}}
 <h3{{^multiple_products}} class="step-1"{{/multiple_products}}{{#has_build}} id="recent-builds"{{/has_build}}>
-  {{title}} {{#has_build}}Recent Build{{/has_build}} Downloads</h3>
+  {{title}} Downloads</h3>
 <div class="cb-download-form">
   <form>
     <select>
