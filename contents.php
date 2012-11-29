@@ -6391,6 +6391,240 @@ return array (
     'size' => 78532680,
     'hash' => 'f8ee770a8a12837bee1cbe483789e1e3-2',
   ),
+  /**
+   * Couchbase Server 2.0.0
+   */
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.deb.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_2.0.0.rpm.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.deb.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.rpm.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.setup.exe.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-community_x86_64_2.0.0.zip.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.deb.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_2.0.0.rpm.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+ 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.deb.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.rpm.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.0.setup.exe.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
   'releases/basestar-a1/README.txt' =>
   array (
     'name' => 'releases/basestar-a1/README.txt',
