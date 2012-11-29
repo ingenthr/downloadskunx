@@ -118,8 +118,13 @@ function collectFor($product_string, $contents) {
 
     list(, $version, $filename) = explode('/', $file['name']);
 
+    if(BY_VERSION) {
+      $minVersion = 1.7;
+    } else {
+      $minVersion = 1.8;
+    }
     if ($filename === "") continue;
-    else if ($version < 1.8) continue;
+    else if ($version < $minVersion) continue;
     else if (!is_numeric($version[0])) continue;
     else if ($filename === 'index.html') continue;
     else if(preg_match('/beta|preview/', $filename)) continue;
