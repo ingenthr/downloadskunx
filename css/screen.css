@@ -138,5 +138,9 @@ a:focus {
   text-decoration: none;
 }
 
+a.why_edition {
+  font-style: normal;
+  text-decoration: underline;
+}
 
 

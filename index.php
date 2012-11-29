@@ -119,9 +119,10 @@ function collectFor($product_string, $contents) {
     list(, $version, $filename) = explode('/', $file['name']);
 
     if ($filename === "") continue;
-    else if ($version < 1.7) continue;
+    else if ($version < 1.8) continue;
     else if (!is_numeric($version[0])) continue;
     else if ($filename === 'index.html') continue;
+    else if(preg_match('/beta|preview/', $filename)) continue;
     else if (substr($filename, -3, 3) === 'md5'
       || substr($filename, -9, 9) === 'blacklist'
       || substr($filename, -7, 7) === 'staging'
@@ -294,8 +295,15 @@ if (BY_VERSION === true) {
       $recent_builds_data = $products_by_major_version[$k];
     }
   }
-
   $products = $products_by_major_version;
+
+  // Unsetting the recent builds for now
+  foreach($products as $key => $product) {
+    if($product['id'] == 'couchbase-server-2-0-builds') {
+      unset($products[$key]);
+    }
+  }
+  $products = array_values($products);
 } else {
   // /downloads
   $latest = null;
@@ -329,22 +337,13 @@ if (BY_VERSION === true) {
   $products[0]['releases'][0]['version'] = '2.0.0 recent builds';
 }
 
-// Quick hack to populate the beta releases to the top
-// This can be modified to push the final releases afterwards
-// @daschl, 2012-09-17
-foreach($products[0]['releases'] as $key => $release) {
-  if(preg_match('/beta/', $release['version'])) {
-    $beta = array_splice($products[0]['releases'], $key, 1, null);
-    array_unshift($products[0]['releases'], $beta[0]);
-  } 
-}
-
-foreach($products as $key => $product) {
-  if(preg_match('/couchbase-server-2-0-builds/', $product['id'])) {
-    $products[$key]['title'] = 'Couchbase Server 2.0 Recent Builds';
+// Removing the recent builds for now.
+foreach($products[0]['releases'] as $index => $release) {
+  if($release['version'] == '2.0.0 recent builds') {
+    unset($products[0]['releases'][$index]);
   }
 }
-
+$products[0]['releases'] = array_values($products[0]['releases']);
 
 $products = array('products' => $products,
                   'staging' => (IS_LOCAL || IS_STAGING),
@@ -482,8 +481,7 @@ if ($mimetype === 'application/json') {
 </div>
 {{^multiple_products}}
 <p class="cb-all-downloads">
-  Looking for <a href="/downloads-all#couchbase-server-2-0">Couchbase Server 2.0 beta</a>,
-  legacy <a href="/downloads-all#couchbase-server-1-7">Membase</a> or other products?
+  Looking for older releases of Couchbase Server or other products?
   <b><a href="/downloads-all"
     style="border-left:2px solid #EDEDE5;padding-left:20px;margin-left:20px">View all of our downloads</a></b>.
 </p>
