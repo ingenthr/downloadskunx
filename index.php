@@ -133,6 +133,7 @@ function collectFor($product_string, $contents) {
       || substr($filename, -7, 7) === 'staging'
       || substr($filename, -3, 3) === 'xml'
       || substr($filename, -3, 3) === 'txt'
+      || substr($filename, -8, 8) ==='manifest'
       || substr($filename, 0, 10) === 'northscale'
       || substr($filename, 0, 15) === 'CouchbaseServer') continue;
     else if ($product_string === 'couchbase-server'

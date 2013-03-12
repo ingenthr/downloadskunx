@@ -6625,6 +6625,31 @@ return array (
     'size' => 0,
     'hash' => '',
   ),
+  /**
+   * Couchbase Server 2.0.1
+   */
+  'releases/2.0.1/couchbase-server-enterprise_x86_64_2.0.1.deb' =>
+  array (
+    'name' => 'releases/2.0.1/couchbase-server-enterprise_x86_64_2.0.1.deb',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.1/couchbase-server-enterprise_x86_64_2.0.1.deb.md5' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.1.deb.md5',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  'releases/2.0.1/couchbase-server-enterprise_x86_64_2.0.1.deb.staging' =>
+  array (
+    'name' => 'releases/2.0.0/couchbase-server-enterprise_x86_64_2.0.1.deb.staging',
+    'time' => 0,
+    'size' => 0,
+    'hash' => '',
+  ),
+  /* older stuff */
   'releases/basestar-a1/README.txt' =>
   array (
     'name' => 'releases/basestar-a1/README.txt',
