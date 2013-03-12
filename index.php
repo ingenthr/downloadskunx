@@ -3,9 +3,9 @@
 $accessKey = 'REPLACE ME';
 $secretKey = 'REPLACE ME';
 
-define('IS_STAGING', $_SERVER['SERVER_NAME'] === 'new.stage.couchbase.com');
+define('IS_STAGING', $_SERVER['SERVER_NAME'] === 'www.stage.couchbase.com');
 define('IS_LOCAL', $_SERVER['SERVER_NAME'] === 'localhost');
-define('INCLUDE_PATH', IS_LOCAL ? '' : '/var/www/domains/couchbase.com/new.stage/htdocs/sites/all/libraries/download/');
+define('INCLUDE_PATH', IS_LOCAL ? '' : '/var/www/domains/couchbase.com/www.stage/htdocs/sites/all/libraries/download/');
 
 // true === /downloads-all; false === /downloads
 define('BY_VERSION', false);
@@ -494,7 +494,7 @@ if ($mimetype === 'application/json') {
   <div class="grid-4 first">
     <h3 class="step-2">
       Watch how to quick start your cluster</h3>
-    <iframe src="http://player.vimeo.com/video/35242219?title=0&amp;byline=0&amp;portrait=0&amp;color=A30A0A" width="644" height="362" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+    <iframe width="644" height="362" src="http://www.youtube.com/embed/S7Io_FUXT8c?rel=0&hd=1" frameborder="0" allowfullscreen></iframe></div>
   <div class="grid-2 last">
     <h3 class="step-3">
       Download client libraries</h3>
@@ -691,3 +691,5 @@ EOD;
   }
   echo $m->render($main, $products, $partials);
 }
+
+?>
